@@ -1,0 +1,35 @@
+{
+  "name": "node-mp4-parser",
+  "version": "0.0.1",
+  "description": "Node.js MP4 Video Parser",
+  "license": "MIT",
+  "main": "index",
+  "author": {
+    "name": "Gennadiy Kozlenko",
+    "email": "gennadiy.kozlenko@gmail.com",
+    "url": "https://github.com/pipll/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pipll/node-mp4-parser.git"
+  },
+  "keywords": [
+    "mp4",
+    "mov",
+    "video",
+    "parser"
+  ],
+  "scripts": {
+    "prepublish": "npm prune",
+    "test": "mocha ./test/*"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.6"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
+    "mocha": "^3.0.2",
+    "shortid": "^2.2.6"
+  }
+}
