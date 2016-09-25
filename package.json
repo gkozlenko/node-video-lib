@@ -24,7 +24,8 @@
     "test": "mocha ./test/*"
   },
   "dependencies": {
-    "bluebird": "^3.4.6"
+    "bluebird": "^3.4.6",
+    "node-int64": "^0.4.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
