@@ -62,6 +62,9 @@ describe('node-mp4-parser', function () {
             it('should have extraData', function () {
                 return expect(videoTrack.extraData).to.be.ok;
             });
+            it('should have samples', function () {
+                return expect(videoTrack.samples.length).to.be.ok;
+            });
         });
 
         describe('audioTrack', function () {
@@ -88,6 +91,9 @@ describe('node-mp4-parser', function () {
             });
             it('should have extraData', function () {
                 return expect(audioTrack.extraData).to.be.ok;
+            });
+            it('should have samples', function () {
+                return expect(audioTrack.samples.length).to.be.ok;
             });
         });
     });
