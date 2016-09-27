@@ -1,6 +1,6 @@
 'use strict';
 
-var MP4Parser = require('../index');
+var MediaLib = require('../index');
 
 var chai = require('chai');
 chai.use(require('chai-as-promised'));
@@ -9,18 +9,18 @@ var expect = chai.expect;
 var MP4_FILE = './resources/boomstream.mp4';
 var INVALID_FILE = './resources/picture.jpg';
 
-describe('node-mp4-parser', function () {
+describe('node-media-lib', function () {
     this.timeout(10000);
 
     describe('parse', function () {
         it('should throw an error when opens a non existing file', function () {
-            return expect(MP4Parser.parse('/file/not/exists.mp4')).to.be.rejected;
+            return expect(MediaLib.parse('/file/not/exists.mp4')).to.be.rejected;
         });
         it('should throw an error when opens a not mp4 file', function () {
-            return expect(MP4Parser.parse(INVALID_FILE)).to.be.rejected;
+            return expect(MediaLib.parse(INVALID_FILE)).to.be.rejected;
         });
         it('should not throw an error when opens an existing file', function () {
-            return expect(MP4Parser.parse(MP4_FILE)).to.be.fulfilled;
+            return expect(MediaLib.parse(MP4_FILE)).to.be.fulfilled;
         });
     });
 
@@ -28,7 +28,7 @@ describe('node-mp4-parser', function () {
         var movie = null;
 
         before(function() {
-            return MP4Parser.parse(MP4_FILE).then(function(data) {
+            return MediaLib.parse(MP4_FILE).then(function(data) {
                 movie = data;
             });
         });

@@ -1,6 +1,6 @@
-# node-mp4-parser
+# node-media-lib
 
-[WIP] Node.js MP4 Video Parser.
+[WIP] Node.js Media Library.
 
 ## Overview
 
