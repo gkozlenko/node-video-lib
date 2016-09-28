@@ -102,6 +102,17 @@ describe('node-media-lib', function () {
                 return expect(audioTrack.samples().length).to.be.ok;
             });
         });
+
+        describe('fragments', function () {
+            it('should have 6 fragments by 10 seconds', function () {
+                var fragments = movie.fragments(10);
+                return expect(fragments.length).to.be.equal(6);
+            });
+            it('should have 11 fragments by 5 seconds', function () {
+                var fragments = movie.fragments(5);
+                return expect(fragments.length).to.be.equal(11);
+            });
+        });
     });
 
 });
