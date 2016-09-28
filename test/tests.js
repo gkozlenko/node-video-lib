@@ -33,17 +33,17 @@ describe('node-media-lib', function () {
             });
         });
 
-        it('should return right timescale and duration', function () {
-            return expect(movie.duration / movie.timescale).to.be.within(61, 62);
+        it('should return right effective duration', function () {
+            return expect(movie.effectiveDuration()).to.be.within(61, 62);
         });
         it('should have two tracks', function () {
-            return expect(movie.tracks.length).to.be.equal(2);
+            return expect(movie.tracks().length).to.be.equal(2);
         });
         it('should have samples', function () {
             return expect(movie.samples().length).to.be.ok;
         });
         it('should have right number of samples', function () {
-            return expect(movie.samples().length).to.be.equal(movie.videoTrack().samples.length + movie.audioTrack().samples.length);
+            return expect(movie.samples().length).to.be.equal(movie.videoTrack().samples().length + movie.audioTrack().samples().length);
         });
 
         describe('videoTrack', function () {
@@ -57,19 +57,19 @@ describe('node-media-lib', function () {
                 return expect(videoTrack).to.be.ok;
             });
             it('should have right width', function () {
-                return expect(videoTrack.width).to.be.equal(1280);
+                return expect(videoTrack.width()).to.be.equal(1280);
             });
             it('should have right height', function () {
-                return expect(videoTrack.height).to.be.equal(720);
+                return expect(videoTrack.height()).to.be.equal(720);
             });
-            it('should have right timescale and duration', function () {
-                return expect(videoTrack.duration / videoTrack.timescale).to.be.within(61, 62);
+            it('should have right effective duration', function () {
+                return expect(videoTrack.effectiveDuration()).to.be.within(61, 62);
             });
             it('should have extraData', function () {
-                return expect(videoTrack.extraData).to.be.ok;
+                return expect(videoTrack.extraData()).to.be.ok;
             });
             it('should have samples', function () {
-                return expect(videoTrack.samples.length).to.be.ok;
+                return expect(videoTrack.samples().length).to.be.ok;
             });
         });
 
@@ -84,22 +84,22 @@ describe('node-media-lib', function () {
                 return expect(audioTrack).to.be.ok;
             });
             it('should have right channels', function () {
-                return expect(audioTrack.channels).to.be.equal(2);
+                return expect(audioTrack.channels()).to.be.equal(2);
             });
             it('should have right sampleRate', function () {
-                return expect(audioTrack.sampleRate).to.be.equal(44100);
+                return expect(audioTrack.sampleRate()).to.be.equal(44100);
             });
             it('should have right sampleSize', function () {
-                return expect(audioTrack.sampleSize).to.be.equal(16);
+                return expect(audioTrack.sampleSize()).to.be.equal(16);
             });
-            it('should have right timescale and duration', function () {
-                return expect(audioTrack.duration / audioTrack.timescale).to.be.within(61, 62);
+            it('should have right effective duration', function () {
+                return expect(audioTrack.effectiveDuration()).to.be.within(61, 62);
             });
             it('should have extraData', function () {
-                return expect(audioTrack.extraData).to.be.ok;
+                return expect(audioTrack.extraData()).to.be.ok;
             });
             it('should have samples', function () {
-                return expect(audioTrack.samples.length).to.be.ok;
+                return expect(audioTrack.samples().length).to.be.ok;
             });
         });
     });
