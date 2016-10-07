@@ -1,7 +1,7 @@
 {
-  "name": "node-mp4-parser",
+  "name": "node-media-lib",
   "version": "0.0.1",
-  "description": "Node.js MP4 Video Parser",
+  "description": "A Node.js library for parsing MP4/FLV files.",
   "license": "MIT",
   "main": "index",
   "author": {
