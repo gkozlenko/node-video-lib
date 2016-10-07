@@ -16,10 +16,10 @@ describe('node-media-lib', function() {
         it('should throw an error when opens a non existing file', function() {
             return expect(MediaLib.parse('/file/not/exists.mp4')).to.be.rejected;
         });
-        it('should throw an error when opens a not mp4 file', function() {
+        it('should throw an error when opens an invalid file', function() {
             return expect(MediaLib.parse(INVALID_FILE)).to.be.rejected;
         });
-        it('should not throw an error when opens an existing file', function() {
+        it('should not throw an error when opens an existing MP4 file', function() {
             return expect(MediaLib.parse(MP4_FILE)).to.be.fulfilled;
         });
     });
