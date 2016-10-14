@@ -116,6 +116,22 @@ describe('node-media-lib', function() {
                 var fragments = movie.fragments(5);
                 return expect(fragments.length).to.be.equal(11);
             });
+
+            describe('read', function() {
+                var fragment = null;
+
+                before(function() {
+                    var fragments = movie.fragments(10);
+                    fragment = fragments[0];
+                    return fragment.read();
+                });
+
+                it('should read samples data', function() {
+                    return fragment.samples().map(function(sample) {
+                        return expect(sample.buffer().length).to.be.equal(sample.size());
+                    });
+                });
+            });
         });
     });
 
