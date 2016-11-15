@@ -135,4 +135,38 @@ describe('node-media-lib', function() {
         });
     });
 
+    describe('packetizer-hls', function() {
+        var movie;
+        var fragment = null;
+
+        before(function() {
+            return MediaLib.parse(MP4_FILE).then(function(data) {
+                movie = data;
+                var fragments = movie.fragments(10);
+                fragment = fragments[0];
+            });
+        });
+
+        after(function() {
+            return movie.close();
+        });
+
+        describe('packetize', function() {
+            it('should return buffer', function() {
+                return MediaLib.packetize(fragment).then(function(buffer) {
+                    return expect(buffer).to.be.instanceof(Buffer);
+                });
+            });
+
+            it('should have right size', function() {
+                return MediaLib.packetize(fragment).then(function(buffer) {
+                    var size = fragment.samples().reduce(function(size, sample) {
+                        return size + sample.size();
+                    }, 0);
+                    return expect(buffer.length).to.be.above(size);
+                });
+            });
+        });
+    });
+
 });
