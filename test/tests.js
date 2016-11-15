@@ -5,6 +5,8 @@ var MediaLib = require('../index');
 var chai = require('chai');
 chai.use(require('chai-as-promised'));
 var expect = chai.expect;
+var Promise = require('bluebird');
+var fs = Promise.promisifyAll(require('fs'));
 
 var MP4_FILE = './resources/boomstream.mp4';
 var INVALID_FILE = './resources/picture.jpg';
@@ -48,6 +50,14 @@ describe('node-media-lib', function() {
         });
         it('should have right number of samples', function() {
             return expect(movie.samples().length).to.be.equal(movie.videoTrack().samples().length + movie.audioTrack().samples().length);
+        });
+        it('should have right samples size', function() {
+            var size = movie.samples().reduce(function(size, sample) {
+                return size + sample.size();
+            }, 0);
+            return fs.statAsync(MP4_FILE).then(function(data) {
+                return expect(data.size).to.be.above(size);
+            });
         });
 
         describe('videoTrack', function() {
@@ -142,7 +152,7 @@ describe('node-media-lib', function() {
         before(function() {
             return MediaLib.parse(MP4_FILE).then(function(data) {
                 movie = data;
-                var fragments = movie.fragments(10);
+                var fragments = movie.fragments(5);
                 fragment = fragments[0];
             });
         });
@@ -154,7 +164,9 @@ describe('node-media-lib', function() {
         describe('packetize', function() {
             it('should return buffer', function() {
                 return MediaLib.packetize(fragment).then(function(buffer) {
-                    return expect(buffer).to.be.instanceof(Buffer);
+                    return fs.writeFileAsync('./media.ts', buffer).then(function() {
+                        return expect(buffer).to.be.instanceof(Buffer);
+                    });
                 });
             });
 

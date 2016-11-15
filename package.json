@@ -24,8 +24,7 @@
     "test": "mocha ./test/*"
   },
   "dependencies": {
-    "bluebird": "^3.4.6",
-    "buffer-crc32": "^0.2.5"
+    "bluebird": "^3.4.6"
   },
   "devDependencies": {
     "chai": "^3.5.0",
