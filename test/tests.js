@@ -164,9 +164,7 @@ describe('node-media-lib', function() {
         describe('packetize', function() {
             it('should return buffer', function() {
                 return MediaLib.packetize(fragment).then(function(buffer) {
-                    return fs.writeFileAsync('./media.ts', buffer).then(function() {
-                        return expect(buffer).to.be.instanceof(Buffer);
-                    });
+                    return expect(buffer).to.be.instanceof(Buffer);
                 });
             });
 
