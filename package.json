@@ -1,7 +1,7 @@
 {
-  "name": "node-media-lib",
+  "name": "node-video-lib",
   "version": "0.0.1",
-  "description": "A Node.js library for parsing MP4 files.",
+  "description": "Node.js Video Library",
   "license": "MIT",
   "main": "index",
   "author": {
@@ -11,25 +11,28 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pipll/node-mp4-parser.git"
+    "url": "https://github.com/pipll/node-video-lib.git"
+  },
+  "engines": {
+    "node": ">=4.0.0"
   },
   "keywords": [
+    "video",
     "mp4",
     "mov",
-    "video",
-    "parser"
+    "parser",
+    "packetizer",
+    "hls",
+    "m3u8",
+    "mpeg-ts"
   ],
   "scripts": {
     "prepublish": "npm prune",
-    "test": "mocha ./test/*"
-  },
-  "dependencies": {
-    "bluebird": "^3.4.6"
+    "test": "mocha ./test/tests.js"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "chai-as-promised": "^6.0.0",
-    "mocha": "^3.1.2",
-    "shortid": "^2.2.6"
+    "faker": "^3.1.0",
+    "mocha": "^3.1.2"
   }
 }
