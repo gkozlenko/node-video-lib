@@ -2,7 +2,11 @@
 
 [![Build Status](https://travis-ci.org/pipll/node-video-lib.svg?branch=master)](https://travis-ci.org/pipll/node-video-lib) [![npm](https://img.shields.io/npm/v/node-video-lib.svg)](https://www.npmjs.com/package/node-video-lib) [![Dependency Status](https://david-dm.org/pipll/node-video-lib.svg)](https://david-dm.org/pipll/node-video-lib) [![Code Climate](https://codeclimate.com/github/pipll/node-video-lib/badges/gpa.svg)](https://codeclimate.com/github/pipll/node-video-lib) ![GitHub license](https://img.shields.io/github/license/pipll/node-video-lib.svg)
 
-Node.js Video Library
+Node.js Video Library.
+
+## Limitations
+
+**This library works only with MP4 video files encoded using H.264 video codec and AAC audio codec.** 
 
 ## Installation
 
