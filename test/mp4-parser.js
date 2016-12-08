@@ -55,6 +55,9 @@ describe('MP4Parser', function() {
         it('should have right relative duration value', function() {
             return expect(this.movie.relativeDuration()).to.be.within(61, 62);
         });
+        it('should have right bandwidth value', function() {
+            return expect(this.movie.bandwidth()).to.be.within(2090000, 2100000);
+        });
         it('should have two tracks', function() {
             return expect(this.movie.tracks.length).to.be.equal(2);
         });

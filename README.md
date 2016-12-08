@@ -78,6 +78,8 @@ Methods:
 
 * **relativeDuration()** - Movie duration in seconds
     * Return: *\<Number\>*
+* **bandwidth()** - Movie bandwidth in bits per second
+    * Return: *\<Number\>*
 * **addTrack(track)** - Add a track to the tracks list
     * **track** *\<Track\>* - Track
 * **videoTrack()** - Get the first video track
