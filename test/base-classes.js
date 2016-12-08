@@ -63,6 +63,25 @@ describe('VideoTrack', function() {
 
     shouldHaveRelativeDuration();
 
+    describe('#resolution()', function() {
+        it('should return right resolution when width and height are set', function() {
+            this.record.width = faker.random.number();
+            this.record.height = faker.random.number();
+            expect(this.record.resolution()).to.be.eq(`${this.record.width}x${this.record.height}`);
+        });
+        it('should return right resolution when width is not set', function() {
+            this.record.height = faker.random.number();
+            expect(this.record.resolution()).to.be.eq('');
+        });
+        it('should return right resolution when height is not set', function() {
+            this.record.width = faker.random.number();
+            expect(this.record.resolution()).to.be.eq('');
+        });
+        it('should return right resolution when width and height are not set', function() {
+            expect(this.record.resolution()).to.be.eq('');
+        });
+    });
+
     describe('#createSample()', function() {
         it('should return a video sample', function() {
             expect(this.record.createSample()).to.be.instanceof(VideoLib.VideoSample);
