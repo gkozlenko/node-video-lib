@@ -80,6 +80,8 @@ Methods:
     * Return: *\<Number\>*
 * **bandwidth()** - Movie bandwidth in bits per second
     * Return: *\<Number\>*
+* **resolution()** - Video resolution
+    * Return: *\<String\>*
 * **addTrack(track)** - Add a track to the tracks list
     * **track** *\<Track\>* - Track
 * **videoTrack()** - Get the first video track

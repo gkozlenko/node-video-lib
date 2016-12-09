@@ -69,15 +69,15 @@ describe('VideoTrack', function() {
             this.record.height = faker.random.number();
             expect(this.record.resolution()).to.be.eq(`${this.record.width}x${this.record.height}`);
         });
-        it('should return right resolution when width is not set', function() {
+        it('should return empty string when width is not set', function() {
             this.record.height = faker.random.number();
             expect(this.record.resolution()).to.be.eq('');
         });
-        it('should return right resolution when height is not set', function() {
+        it('should return empty string when height is not set', function() {
             this.record.width = faker.random.number();
             expect(this.record.resolution()).to.be.eq('');
         });
-        it('should return right resolution when width and height are not set', function() {
+        it('should return empty string when width and height are not set', function() {
             expect(this.record.resolution()).to.be.eq('');
         });
     });
@@ -118,6 +118,19 @@ describe('Movie', function() {
     });
 
     shouldHaveRelativeDuration();
+
+    describe('#resolution()', function() {
+        it('should return video track resolution when width and height are set', function() {
+            let videoTrack = new VideoLib.VideoTrack();
+            videoTrack.width = faker.random.number();
+            videoTrack.height = faker.random.number();
+            this.record.addTrack(videoTrack);
+            expect(this.record.resolution()).to.be.eq(videoTrack.resolution());
+        });
+        it('should return empty string when video track is not set', function() {
+            expect(this.record.resolution()).to.be.eq('');
+        });
+    });
 
     describe('#videoTrack()', function() {
         it('should return the first video track', function() {
