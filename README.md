@@ -78,6 +78,8 @@ Methods:
 
 * **relativeDuration()** - Movie duration in seconds
     * Return: *\<Number\>*
+* **size()** - Movie size in bytes
+    * Return: *\<Integer\>*
 * **bandwidth()** - Movie bandwidth in bits per second
     * Return: *\<Number\>*
 * **resolution()** - Video resolution

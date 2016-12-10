@@ -38,7 +38,7 @@ describe('HLSPacketizer', function() {
             });
         });
 
-        describe('when fragment is invalid', function() {
+        describe('when fragment is not valid', function() {
             it('should throws an error', function() {
                 return expect(() => HLSPacketizer.packetize('Some string')).to.throw('Argument 1 should be instance of Fragment');
             });

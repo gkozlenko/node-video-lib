@@ -27,7 +27,7 @@ describe('MP4Parser', function() {
             });
         });
 
-        describe('when file is invalid', function() {
+        describe('when file is not valid', function() {
             before(function() {
                 this.file = fs.openSync(INVALID_FILE, 'r');
             });
