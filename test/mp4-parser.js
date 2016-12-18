@@ -142,7 +142,7 @@ describe('MP4Parser', function() {
 
                 describe('#readSamples()', function() {
                     before(function() {
-                        this.fragment.readSamples();
+                        this.fragment.readSamples(this.file);
                     });
 
                     it('should read samples data', function() {

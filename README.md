@@ -46,7 +46,7 @@ fs.open('/path/to/file.mp4', 'r', function(fd) {
     try {
         let movie = MP4Parser.parse(fd);
         for (let fragment of movie.fragments(5)) {
-            let buffer = HLSPacketizer.packetize(fragment);
+            let buffer = HLSPacketizer.packetize(fragment, fd);
             // Now buffer contains MPEG-TS chunk
         }
     } catch (ex) {
@@ -94,7 +94,7 @@ Methods:
     * Return: *\<Array\>*
 * **fragments(fragmentDuration)** - Split the movie to a list of fragments with an appropriate duration
     * **fragmentDuration** *\<Integer\>* - Fragment duration
-    * Return: *\<Array\>*
+    * Return: *\<FragmentList\>*
 
 ### Fragment
 
@@ -106,7 +106,6 @@ const Fragment = require('node-video-lib').Fragment;
 
 Properties:
 
-* **file** *\<Integer\>* - File descriptor
 * **timestamp** *\<Integer\>* - Fragment timestamp
 * **duration** *\<Integer\>* - Fragment duration
 * **timescale** *\<Integer\>* - Fragment timescale
@@ -122,7 +121,34 @@ Methods:
     * Return: *\<Number\>*
 * **addSample(sample)** - Add a sample to the samples list
     * **sample** *\<Sample\>* - Sample
-* **readSamples()** - Read samples content
+* **readSamples(file)** - Read samples content
+    * **file** *\<Integer\>* - File descriptor
+
+### Fragment List
+
+A movie fragment list class. Inherits *\<Array\>* class.
+
+```javascript
+const FragmentList = require('node-video-lib').FragmentList;
+```
+
+Properties:
+
+* **fragmentDuration** *\<Integer\>* - Target fragment duration
+* **duration** *\<Integer\>* - Movie duration
+* **timescale** *\<Integer\>* - Movie timescale
+* **size** *\<Integer\>* - Movie size
+* **width** *\<Integer\>* - Video width
+* **height** *\<Integer\>* - Video height
+
+Methods:
+
+* **relativeDuration()** - Movie duration in seconds
+    * Return: *\<Number\>*
+* **bandwidth()** - Movie bandwidth in bits per second
+    * Return: *\<Number\>*
+* **resolution()** - Video resolution
+    * Return: *\<String\>*
 
 ### Track
 

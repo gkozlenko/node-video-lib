@@ -34,6 +34,27 @@ const shouldHaveRelativeDuration = function() {
     });
 };
 
+const shouldHaveResolution = function() {
+    describe('#resolution()', function() {
+        it('should return right resolution when width and height are set', function() {
+            this.record.width = faker.random.number();
+            this.record.height = faker.random.number();
+            expect(this.record.resolution()).to.be.eq(`${this.record.width}x${this.record.height}`);
+        });
+        it('should return empty string when width is not set', function() {
+            this.record.height = faker.random.number();
+            expect(this.record.resolution()).to.be.eq('');
+        });
+        it('should return empty string when height is not set', function() {
+            this.record.width = faker.random.number();
+            expect(this.record.resolution()).to.be.eq('');
+        });
+        it('should return empty string when width and height are not set', function() {
+            expect(this.record.resolution()).to.be.eq('');
+        });
+    });
+};
+
 describe('Sample', function() {
     beforeEach(function() {
         this.record = new VideoLib.Sample();
@@ -62,25 +83,7 @@ describe('VideoTrack', function() {
     });
 
     shouldHaveRelativeDuration();
-
-    describe('#resolution()', function() {
-        it('should return right resolution when width and height are set', function() {
-            this.record.width = faker.random.number();
-            this.record.height = faker.random.number();
-            expect(this.record.resolution()).to.be.eq(`${this.record.width}x${this.record.height}`);
-        });
-        it('should return empty string when width is not set', function() {
-            this.record.height = faker.random.number();
-            expect(this.record.resolution()).to.be.eq('');
-        });
-        it('should return empty string when height is not set', function() {
-            this.record.width = faker.random.number();
-            expect(this.record.resolution()).to.be.eq('');
-        });
-        it('should return empty string when width and height are not set', function() {
-            expect(this.record.resolution()).to.be.eq('');
-        });
-    });
+    shouldHaveResolution();
 
     describe('#createSample()', function() {
         it('should return a video sample', function() {
@@ -163,4 +166,13 @@ describe('Movie', function() {
             expect(this.record.audioTrack()).to.be.equal(null);
         });
     });
+});
+
+describe('FragmentList', function() {
+    beforeEach(function() {
+        this.record = new VideoLib.FragmentList();
+    });
+
+    shouldHaveRelativeDuration();
+    shouldHaveResolution();
 });
