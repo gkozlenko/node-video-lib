@@ -69,12 +69,6 @@ describe('Track', function() {
     });
 
     shouldHaveRelativeDuration();
-
-    describe('#createSample()', function() {
-        it('should return a general sample', function() {
-            expect(this.record.createSample()).to.be.instanceof(VideoLib.Sample);
-        });
-    });
 });
 
 describe('VideoTrack', function() {
@@ -84,12 +78,6 @@ describe('VideoTrack', function() {
 
     shouldHaveRelativeDuration();
     shouldHaveResolution();
-
-    describe('#createSample()', function() {
-        it('should return a video sample', function() {
-            expect(this.record.createSample()).to.be.instanceof(VideoLib.VideoSample);
-        });
-    });
 });
 
 describe('AudioTrack', function() {
@@ -98,12 +86,6 @@ describe('AudioTrack', function() {
     });
 
     shouldHaveRelativeDuration();
-
-    describe('#createSample()', function() {
-        it('should return a video sample', function() {
-            expect(this.record.createSample()).to.be.instanceof(VideoLib.AudioSample);
-        });
-    });
 });
 
 describe('Fragment', function() {

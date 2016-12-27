@@ -171,8 +171,6 @@ Methods:
     * Return: *\<Number\>*
 * **addSample(sample)** - Add a sample to the samples list
     * **sample** *\<Sample\>* - Sample
-* **createSample()** - Create a new sample
-    * Return: *\<Sample\>*
 
 ### Audio track
 
@@ -187,11 +185,6 @@ Properties:
 * **channels** *\<Integer\>* - Number of audio channels
 * **sampleRate** *\<Integer\>* - Audio sample rate
 * **sampleSize** *\<Integer\>* - Audio sample size
-
-Methods:
-
-* **createSample()** - Create a new audio sample
-    * Return: *\<AudioSample\>*
 
 ### Video track
 
@@ -210,8 +203,6 @@ Methods:
 
 * **resolution()** - Video resolution
     * Return: *\<String\>*
-* **createSample()** - Create a new video sample
-    * Return: *\<VideoSample\>*
 
 ### Sample
 
