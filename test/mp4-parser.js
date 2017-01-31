@@ -55,9 +55,6 @@ describe('MP4Parser', function() {
         it('should have right relative duration value', function() {
             return expect(this.movie.relativeDuration()).to.be.within(61, 62);
         });
-        it('should have right bandwidth value', function() {
-            return expect(this.movie.bandwidth()).to.be.within(2090000, 2100000);
-        });
         it('should have two tracks', function() {
             return expect(this.movie.tracks.length).to.be.equal(2);
         });
@@ -129,15 +126,15 @@ describe('MP4Parser', function() {
 
         describe('#fragments()', function() {
             it('should have 6 fragments by 10 seconds', function() {
-                return expect(this.movie.fragments(10).length).to.be.equal(6);
+                return expect(this.movie.fragments(10).count()).to.be.equal(6);
             });
             it('should have 11 fragments by 5 seconds', function() {
-                return expect(this.movie.fragments(5).length).to.be.equal(11);
+                return expect(this.movie.fragments(5).count()).to.be.equal(11);
             });
 
             describe('fragment', function() {
                 before(function() {
-                    this.fragment = this.movie.fragments(10)[0];
+                    this.fragment = this.movie.fragments(10).get(0);
                 });
 
                 describe('#readSamples()', function() {

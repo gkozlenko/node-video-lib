@@ -40,13 +40,15 @@ fs.open('/path/to/file.mp4', 'r', function(fd) {
 ```javascript
 const fs = require('fs');
 const MP4Parser = require('node-video-lib').MP4Parser;
+const FragmentListBuilder = require('node-video-lib').FragmentListBuilder;
 const HLSPacketizer = require('node-video-lib').HLSPacketizer;
 
 fs.open('/path/to/file.mp4', 'r', function(fd) {
     try {
         let movie = MP4Parser.parse(fd);
-        for (let fragment of movie.fragments(5)) {
-            let buffer = HLSPacketizer.packetize(fragment, fd);
+        let fragmentList = FragmentListBuilder.build(movie, 5000);
+        for (let i = 0; i < fragmentList.count(); i++) {
+            let buffer = HLSPacketizer.packetize(fragmentList.get(i), fd);
             // Now buffer contains MPEG-TS chunk
         }
     } catch (ex) {
@@ -70,17 +72,13 @@ const Movie = require('node-video-lib').Movie;
 Properties:
 
 * **file** *\<Integer\>* - File descriptor
-* **duration** *\<Integer\>* - Fragment duration
-* **timescale** *\<Integer\>* - Fragment timescale
+* **duration** *\<Integer\>* - Movie duration
+* **timescale** *\<Integer\>* - Movie timescale
 * **tracks** *\<Array\>* - List of movie tracks
 
 Methods:
 
 * **relativeDuration()** - Movie duration in seconds
-    * Return: *\<Number\>*
-* **size()** - Movie size in bytes
-    * Return: *\<Integer\>*
-* **bandwidth()** - Movie bandwidth in bits per second
     * Return: *\<Number\>*
 * **resolution()** - Video resolution
     * Return: *\<String\>*
@@ -95,6 +93,33 @@ Methods:
 * **fragments(fragmentDuration)** - Split the movie to a list of fragments with an appropriate duration
     * **fragmentDuration** *\<Integer\>* - Fragment duration
     * Return: *\<FragmentList\>*
+
+### FragmentList
+
+A list of movie fragments class.
+
+```javascript
+const FragmentList = require('node-video-lib').FragmentList;
+```
+
+Properties:
+
+* **fragmentDuration** *\<Integer\>* - Target fragment duration
+* **duration** *\<Integer\>* - Movie duration
+* **timescale** *\<Integer\>* - Movie timescale
+* **videoExtraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Video codec information content
+* **audioExtraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Audio codec information content
+* **width** *\<Integer\>* - Video width
+* **height** *\<Integer\>* - Video height
+
+Methods:
+
+* **relativeDuration()** - Movie duration in seconds
+    * Return: *\<Number\>*
+* **count()** - Fragments count
+    * Return: *\<Integer\>*
+* **get(index)** - Get fragment by index
+    * Return: [*\<Fragment\>*](#fragment)
 
 ### Fragment
 
@@ -119,36 +144,8 @@ Methods:
     * Return: *\<Number\>*
 * **relativeDuration()** - Fragment duration in seconds
     * Return: *\<Number\>*
-* **addSample(sample)** - Add a sample to the samples list
-    * **sample** *\<Sample\>* - Sample
 * **readSamples(file)** - Read samples content
     * **file** *\<Integer\>* - File descriptor
-
-### Fragment List
-
-A movie fragment list class. Inherits *\<Array\>* class.
-
-```javascript
-const FragmentList = require('node-video-lib').FragmentList;
-```
-
-Properties:
-
-* **fragmentDuration** *\<Integer\>* - Target fragment duration
-* **duration** *\<Integer\>* - Movie duration
-* **timescale** *\<Integer\>* - Movie timescale
-* **size** *\<Integer\>* - Movie size
-* **width** *\<Integer\>* - Video width
-* **height** *\<Integer\>* - Video height
-
-Methods:
-
-* **relativeDuration()** - Movie duration in seconds
-    * Return: *\<Number\>*
-* **bandwidth()** - Movie bandwidth in bits per second
-    * Return: *\<Number\>*
-* **resolution()** - Video resolution
-    * Return: *\<String\>*
 
 ### Track
 
@@ -172,7 +169,7 @@ Methods:
 * **addSample(sample)** - Add a sample to the samples list
     * **sample** *\<Sample\>* - Sample
 
-### Audio track
+### AudioTrack
 
 An audio track class. Extends the general track class
 
@@ -186,7 +183,7 @@ Properties:
 * **sampleRate** *\<Integer\>* - Audio sample rate
 * **sampleSize** *\<Integer\>* - Audio sample size
 
-### Video track
+### VideoTrack
 
 A video track class. Extends the general track class
 
@@ -225,7 +222,7 @@ Methods:
 * **relativeTimestamp()** - Sample timestamp in seconds
     * Return: *\<Number\>*
 
-### Audio sample
+### AudioSample
 
 An audio sample class. Extends the general sample class
 
@@ -233,7 +230,7 @@ An audio sample class. Extends the general sample class
 const AudioSample = require('node-video-lib').AudioSample;
 ```
 
-### Video sample
+### VideoSample
 
 A video sample class. Extends the general sample class
 

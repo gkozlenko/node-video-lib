@@ -23,7 +23,7 @@ describe('HLSPacketizer', function() {
     describe('#packetize()', function() {
         describe('when fragment is valid', function() {
             before(function() {
-                this.fragment = this.movie.fragments(5)[0];
+                this.fragment = this.movie.fragments(5).get(0);
             });
 
             it('should return a buffer object', function() {
