@@ -75,6 +75,21 @@ Methods:
     * **fd** *\<Integer\>* - File descriptor
     * Return: [*\<Movie\>*](#movie)
 
+### HLSPacketizer
+
+A tool for creating MPEG-TS chunks.
+
+```javascript
+const HLSPacketizer = require('node-video-lib').HLSPacketizer;
+```
+
+Methods:
+
+* **packetize(fragment, fd)** - Create MPEG-TS chunk from movie fragment
+    * **fragment** [*\<Fragment\>*](#fragment) - Movie fragment
+    * **fd** *\<Integer\>* - File descriptor
+    * Return: [*\<Buffer\>*](https://nodejs.org/api/buffer.html)
+
 ### FragmentListBuilder
 
 A tool for splitting the movie into a list of fragments.
