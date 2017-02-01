@@ -2,6 +2,7 @@
 
 const VideoLib = require('../index');
 const MP4Parser = VideoLib.MP4Parser;
+const FragmentListBuilder = VideoLib.FragmentListBuilder;
 
 const fs = require('fs');
 const chai = require('chai');
@@ -124,17 +125,17 @@ describe('MP4Parser', function() {
             });
         });
 
-        describe('#fragments()', function() {
+        describe('fragments', function() {
             it('should have 6 fragments by 10 seconds', function() {
-                return expect(this.movie.fragments(10).count()).to.be.equal(6);
+                return expect(FragmentListBuilder.build(this.movie, 10).count()).to.be.equal(6);
             });
             it('should have 11 fragments by 5 seconds', function() {
-                return expect(this.movie.fragments(5).count()).to.be.equal(11);
+                return expect(FragmentListBuilder.build(this.movie, 5).count()).to.be.equal(11);
             });
 
             describe('fragment', function() {
                 before(function() {
-                    this.fragment = this.movie.fragments(10).get(0);
+                    this.fragment = FragmentListBuilder.build(this.movie, 10).get(0);
                 });
 
                 describe('#readSamples()', function() {

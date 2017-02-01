@@ -46,7 +46,7 @@ const HLSPacketizer = require('node-video-lib').HLSPacketizer;
 fs.open('/path/to/file.mp4', 'r', function(fd) {
     try {
         let movie = MP4Parser.parse(fd);
-        let fragmentList = FragmentListBuilder.build(movie, 5000);
+        let fragmentList = FragmentListBuilder.build(movie, 5);
         for (let i = 0; i < fragmentList.count(); i++) {
             let buffer = HLSPacketizer.packetize(fragmentList.get(i), fd);
             // Now buffer contains MPEG-TS chunk
@@ -61,6 +61,35 @@ fs.open('/path/to/file.mp4', 'r', function(fd) {
 
 ## Classes
 
+### MP4Parser
+
+A tool for parsing MP4 video files.
+
+```javascript
+const MP4Parser = require('node-video-lib').MP4Parser;
+```
+
+Methods:
+
+* **parse(fd)** - Parse MP4 file
+    * **fd** *\<Integer\>* - File descriptor
+    * Return: [*\<Movie\>*](#movie)
+
+### FragmentListBuilder
+
+A tool for splitting the movie into a list of fragments.
+
+```javascript
+const FragmentListBuilder = require('node-video-lib').FragmentListBuilder;
+```
+
+Methods:
+
+* **build(movie, fragmentDuration)** - Split the movie to a list of fragments with an appropriate duration
+    * **movie** [*\<Movie\>*](#movie) - Fragment duration
+    * **fragmentDuration** *\<Integer\>* - Fragment duration
+    * Return: [*\<FragmentList\>*](#fragmentlist)
+
 ### Movie
 
 A movie class
@@ -71,7 +100,6 @@ const Movie = require('node-video-lib').Movie;
 
 Properties:
 
-* **file** *\<Integer\>* - File descriptor
 * **duration** *\<Integer\>* - Movie duration
 * **timescale** *\<Integer\>* - Movie timescale
 * **tracks** *\<Array\>* - List of movie tracks
@@ -90,9 +118,6 @@ Methods:
     * Return: *\<AudioTrack\>*
 * **samples()** - Get a list of movie samples ordered by relative timestamp
     * Return: *\<Array\>*
-* **fragments(fragmentDuration)** - Split the movie to a list of fragments with an appropriate duration
-    * **fragmentDuration** *\<Integer\>* - Fragment duration
-    * Return: *\<FragmentList\>*
 
 ### FragmentList
 
@@ -144,8 +169,8 @@ Methods:
     * Return: *\<Number\>*
 * **relativeDuration()** - Fragment duration in seconds
     * Return: *\<Number\>*
-* **readSamples(file)** - Read samples content
-    * **file** *\<Integer\>* - File descriptor
+* **readSamples(fd)** - Read samples content
+    * **fd** *\<Integer\>* - File descriptor
 
 ### Track
 

@@ -2,6 +2,7 @@
 
 const VideoLib = require('../index');
 const MP4Parser = VideoLib.MP4Parser;
+const FragmentListBuilder = VideoLib.FragmentListBuilder;
 const HLSPacketizer = VideoLib.HLSPacketizer;
 
 const fs = require('fs');
@@ -23,7 +24,7 @@ describe('HLSPacketizer', function() {
     describe('#packetize()', function() {
         describe('when fragment is valid', function() {
             before(function() {
-                this.fragment = this.movie.fragments(5).get(0);
+                this.fragment = FragmentListBuilder.build(this.movie, 5).get(0);
             });
 
             it('should return a buffer object', function() {
