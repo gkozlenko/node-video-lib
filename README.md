@@ -171,6 +171,8 @@ Methods:
 
 * **relativeDuration()** - Movie duration in seconds
     * Return: *\<Number\>*
+* **resolution()** - Video resolution
+    * Return: *\<String\>*
 * **count()** - Fragments count
     * Return: *\<Integer\>*
 * **get(index)** - Get fragment by index
@@ -243,7 +245,7 @@ Properties:
 A video track class. Extends the general track class
 
 ```javascript
-const AudioTrack = require('node-video-lib').AudioTrack;
+const VideoTrack = require('node-video-lib').VideoTrack;
 ```
 
 Properties:
