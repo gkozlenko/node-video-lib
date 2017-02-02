@@ -105,6 +105,21 @@ Methods:
     * **fragmentDuration** *\<Integer\>* - Fragment duration
     * Return: [*\<FragmentList\>*](#fragmentlist)
 
+### FragmentReader
+
+A tool for reading samples data of the given movie fragment.
+
+```javascript
+const FragmentReader = require('node-video-lib').FragmentReader;
+```
+
+Methods:
+
+* **readSamples(fragment, fd)** - Read samples data
+    * **fragment** [*\<Fragment\>*](#fragment) - Movie fragment
+    * **fd** *\<Integer\>* - File descriptor
+    * Return: *\<Array\>* Array of buffers
+
 ### Movie
 
 A movie class
@@ -251,7 +266,6 @@ const Sample = require('node-video-lib').Sample;
 
 Properties:
 
-* **buffer** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Sample content
 * **timestamp** *\<Integer\>* - Sample timestamp
 * **timescale** *\<Integer\>* - Sample timescale
 * **size** *\<Integer\>* - Sample size

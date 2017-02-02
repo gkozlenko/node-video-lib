@@ -3,6 +3,7 @@
 const VideoLib = require('../index');
 const MP4Parser = VideoLib.MP4Parser;
 const FragmentListBuilder = VideoLib.FragmentListBuilder;
+const FragmentReader = VideoLib.FragmentReader;
 
 const fs = require('fs');
 const chai = require('chai');
@@ -138,14 +139,14 @@ describe('MP4Parser', function() {
                     this.fragment = FragmentListBuilder.build(this.movie, 10).get(0);
                 });
 
-                describe('#readSamples()', function() {
+                describe('readSamples', function() {
                     before(function() {
-                        this.fragment.readSamples(this.file);
+                        this.buffers = FragmentReader.readSamples(this.fragment, this.file);
                     });
 
                     it('should read samples data', function() {
-                        return this.fragment.samples.map(function(sample) {
-                            return expect(sample.buffer.length).to.be.equal(sample.size);
+                        return this.fragment.samples.map((sample, i) => {
+                            return expect(this.buffers[i].length).to.be.equal(sample.size);
                         });
                     });
                 });
