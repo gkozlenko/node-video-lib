@@ -223,8 +223,6 @@ Methods:
 
 * **relativeDuration()** - Track duration in seconds
     * Return: *\<Number\>*
-* **addSample(sample)** - Add a sample to the samples list
-    * **sample** *\<Sample\>* - Sample
 
 ### AudioTrack
 
