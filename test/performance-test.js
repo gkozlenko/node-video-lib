@@ -7,8 +7,7 @@ const HLSPacketizer = VideoLib.HLSPacketizer;
 
 const fs = require('fs');
 
-//const MP4_FILE = './resources/boomstream.mp4';
-const MP4_FILE = '../node-media-server/media/big-test.mp4';
+const MP4_FILE = './resources/boomstream.mp4';
 const WARM_COUNT = 10;
 const TEST_COUNT = 20;
 
