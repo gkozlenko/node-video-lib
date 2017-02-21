@@ -3,6 +3,7 @@
 const VideoLib = require('../index');
 const MP4Parser = VideoLib.MP4Parser;
 const FragmentListBuilder = VideoLib.FragmentListBuilder;
+const FragmentReader = VideoLib.FragmentReader;
 const HLSPacketizer = VideoLib.HLSPacketizer;
 
 const fs = require('fs');
@@ -19,7 +20,9 @@ describe('performance-test', function() {
         for (let i = 0; i < WARM_COUNT; i++) {
             let movie = MP4Parser.parse(this.file);
             let fragmentList = FragmentListBuilder.build(movie, 5);
-            HLSPacketizer.packetize(fragmentList.get(0), this.file);
+            let fragment = fragmentList.get(0);
+            let sampleBuffers = FragmentReader.readSamples(fragment, this.file);
+            HLSPacketizer.packetize(fragment, sampleBuffers);
         }
     });
 
@@ -28,7 +31,7 @@ describe('performance-test', function() {
     });
 
     it('performance', function() {
-        let parseTime = 0, buildTime = 0, packetizeTime = 0;
+        let parseTime = 0, buildTime = 0, readerTime = 0, packetizeTime = 0;
         let startTime, endTime;
 
         for (let i = 0; i < TEST_COUNT; i++) {
@@ -39,17 +42,24 @@ describe('performance-test', function() {
 
             startTime = Date.now();
             let fragmentList = FragmentListBuilder.build(movie, 5);
+            let fragment = fragmentList.get(0);
             endTime = Date.now();
             buildTime += endTime - startTime;
 
             startTime = Date.now();
-            HLSPacketizer.packetize(fragmentList.get(0), this.file);
+            let sampleBuffers = FragmentReader.readSamples(fragment, this.file);
+            endTime = Date.now();
+            readerTime += endTime - startTime;
+
+            startTime = Date.now();
+            HLSPacketizer.packetize(fragment, sampleBuffers);
             endTime = Date.now();
             packetizeTime += endTime - startTime;
         }
 
         console.log(`Parser: ${parseTime / TEST_COUNT} ms`);
         console.log(`Builder: ${buildTime / TEST_COUNT} ms`);
+        console.log(`Reader: ${readerTime / TEST_COUNT} ms`);
         console.log(`Packetizer: ${packetizeTime / TEST_COUNT} ms`);
     });
 

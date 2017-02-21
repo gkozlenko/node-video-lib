@@ -39,16 +39,20 @@ fs.open('/path/to/file.mp4', 'r', function(fd) {
 
 ```javascript
 const fs = require('fs');
-const MP4Parser = require('node-video-lib').MP4Parser;
-const FragmentListBuilder = require('node-video-lib').FragmentListBuilder;
-const HLSPacketizer = require('node-video-lib').HLSPacketizer;
+const VideoLib = require('node-video-lib');
+const MP4Parser = VideoLib.MP4Parser;
+const FragmentListBuilder = VideoLib.FragmentListBuilder;
+const FragmentReader = VideoLib.FragmentReader;
+const HLSPacketizer = VideoLib.HLSPacketizer;
 
 fs.open('/path/to/file.mp4', 'r', function(fd) {
     try {
         let movie = MP4Parser.parse(fd);
         let fragmentList = FragmentListBuilder.build(movie, 5);
         for (let i = 0; i < fragmentList.count(); i++) {
-            let buffer = HLSPacketizer.packetize(fragmentList.get(i), fd);
+            let fragment = fragmentList.get(i);
+            let sampleBuffers = FragmentReader.readSamples(fragment, fd);
+            let buffer = HLSPacketizer.packetize(fragment, sampleBuffers);
             // Now buffer contains MPEG-TS chunk
         }
     } catch (ex) {
@@ -85,9 +89,9 @@ const HLSPacketizer = require('node-video-lib').HLSPacketizer;
 
 Methods:
 
-* **packetize(fragment, fd)** - Create MPEG-TS chunk from movie fragment
+* **packetize(fragment, sampleBuffers)** - Create MPEG-TS chunk from movie fragment
     * **fragment** [*\<Fragment\>*](#fragment) - Movie fragment
-    * **fd** *\<Integer\>* - File descriptor
+    * **sampleBuffers** *\<Array\>* - Array of buffers
     * Return: [*\<Buffer\>*](https://nodejs.org/api/buffer.html)
 
 ### FragmentListBuilder

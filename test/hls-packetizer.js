@@ -3,6 +3,7 @@
 const VideoLib = require('../index');
 const MP4Parser = VideoLib.MP4Parser;
 const FragmentListBuilder = VideoLib.FragmentListBuilder;
+const FragmentReader = VideoLib.FragmentReader;
 const HLSPacketizer = VideoLib.HLSPacketizer;
 
 const fs = require('fs');
@@ -25,23 +26,24 @@ describe('HLSPacketizer', function() {
         describe('when fragment is valid', function() {
             before(function() {
                 this.fragment = FragmentListBuilder.build(this.movie, 5).get(0);
+                this.sampleBuffers = FragmentReader.readSamples(this.fragment, this.file);
             });
 
             it('should return a buffer object', function() {
-                return expect(HLSPacketizer.packetize(this.fragment, this.file)).to.be.instanceof(Buffer);
+                return expect(HLSPacketizer.packetize(this.fragment, this.sampleBuffers)).to.be.instanceof(Buffer);
             });
 
             it('should have right size', function() {
                 let size = this.fragment.samples.reduce(function(size, sample) {
                     return size + sample.size;
                 }, 0);
-                return expect(HLSPacketizer.packetize(this.fragment, this.file).length).to.be.above(size);
+                return expect(HLSPacketizer.packetize(this.fragment, this.sampleBuffers).length).to.be.above(size);
             });
         });
 
         describe('when fragment is not valid', function() {
             it('should throws an error', function() {
-                return expect(() => HLSPacketizer.packetize('Some string', this.file)).to.throw('Argument 1 should be instance of Fragment');
+                return expect(() => HLSPacketizer.packetize('Some string', this.sampleBuffers)).to.throw('Argument 1 should be instance of Fragment');
             });
         });
     });

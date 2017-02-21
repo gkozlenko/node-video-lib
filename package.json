@@ -28,7 +28,8 @@
   ],
   "scripts": {
     "prepublish": "npm prune",
-    "test": "mocha ./test/tests.js"
+    "test": "mocha ./test/tests.js",
+    "performance-test": "mocha ./test/performance-test.js"
   },
   "devDependencies": {
     "chai": "^3.5.0",
