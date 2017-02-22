@@ -9,8 +9,8 @@ const HLSPacketizer = VideoLib.HLSPacketizer;
 const fs = require('fs');
 
 const MP4_FILE = './resources/boomstream.mp4';
-const WARM_COUNT = 10;
-const TEST_COUNT = 20;
+const WARM_COUNT = 1;
+const TEST_COUNT = 40;
 
 describe('performance-test', function() {
     this.timeout(120000);
