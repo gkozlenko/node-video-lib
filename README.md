@@ -109,6 +109,23 @@ Methods:
     * **fragmentDuration** *\<Integer\>* - Fragment duration
     * Return: [*\<FragmentList\>*](#fragmentlist)
 
+### FragmentListIndexer
+
+A tool to work with index files.
+
+```javascript
+const FragmentListIndexer = require('node-video-lib').FragmentListIndexer;
+```
+
+Methods:
+
+* **index(fragmentList, fd)** - Index fragment list
+    * **fragmentList** [*\<FragmentList\>*](#fragmentlist) - Fragment list
+    * **fd** *\<Integer\>* - File descriptor
+* **read(fd)** - Read fragment list from index
+    * **fd** *\<Integer\>* - File descriptor
+    * Return: [*\<FragmentList\>*](#fragmentlist)
+
 ### FragmentReader
 
 A tool for reading samples data of the given movie fragment.
