@@ -20,11 +20,11 @@ npm install node-video-lib
 
 ```javascript
 const fs = require('fs');
-const MP4Parser = require('node-video-lib').MP4Parser;
+const VideoLib = require('node-video-lib');
 
 fs.open('/path/to/file.mp4', 'r', function(fd) {
     try {
-        let movie = MP4Parser.parse(fd);
+        let movie = VideoLib.MP4Parser.parse(fd);
         // Work with movie
         console.log('Duration:', movie.relativeDuration());
     } catch (ex) {
@@ -40,19 +40,15 @@ fs.open('/path/to/file.mp4', 'r', function(fd) {
 ```javascript
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
-const MP4Parser = VideoLib.MP4Parser;
-const FragmentListBuilder = VideoLib.FragmentListBuilder;
-const FragmentReader = VideoLib.FragmentReader;
-const HLSPacketizer = VideoLib.HLSPacketizer;
 
 fs.open('/path/to/file.mp4', 'r', function(fd) {
     try {
-        let movie = MP4Parser.parse(fd);
-        let fragmentList = FragmentListBuilder.build(movie, 5);
+        let movie = VideoLib.MP4Parser.parse(fd);
+        let fragmentList = VideoLib.FragmentListBuilder.build(movie, 5);
         for (let i = 0; i < fragmentList.count(); i++) {
             let fragment = fragmentList.get(i);
-            let sampleBuffers = FragmentReader.readSamples(fragment, fd);
-            let buffer = HLSPacketizer.packetize(fragment, sampleBuffers);
+            let sampleBuffers = VideoLib.FragmentReader.readSamples(fragment, fd);
+            let buffer = VideoLib.HLSPacketizer.packetize(fragment, sampleBuffers);
             // Now buffer contains MPEG-TS chunk
         }
     } catch (ex) {
@@ -60,6 +56,59 @@ fs.open('/path/to/file.mp4', 'r', function(fd) {
     } finally {
         fs.close(fd);
     }
+});
+```
+
+### Create index file
+
+```javascript
+const fs = require('fs');
+const VideoLib = require('node-video-lib');
+
+fs.open('/path/to/file.mp4', 'r', function(fd) {
+    try {
+        let movie = VideoLib.MP4Parser.parse(fd);
+        let fragmentList = VideoLib.FragmentListBuilder.build(movie, 5);
+        fs.open('/path/to/index.idx', 'w', function(fdi) {
+            try {
+                VideoLib.FragmentListIndexer.index(fragmentList, fdi);
+            } catch (ex) {
+                console.error('Error:', ex);
+            } finally {
+                fs.close(fdi);
+            }
+        });
+    } catch (ex) {
+        console.error('Error:', ex);
+    } finally {
+        fs.close(fd);
+    }
+});
+```
+
+### Create MPEG-TS chunks using index file
+
+```javascript
+const fs = require('fs');
+const VideoLib = require('node-video-lib');
+
+fs.open('/path/to/file.mp4', 'r', function(fd) {
+    fs.open('/path/to/index.idx', 'r', function(fdi) {
+        try {
+            let fragmentList = VideoLib.FragmentListIndexer.read(fdi);
+            for (let i = 0; i < fragmentList.count(); i++) {
+                let fragment = fragmentList.get(i);
+                let sampleBuffers = VideoLib.FragmentReader.readSamples(fragment, fd);
+                let buffer = VideoLib.HLSPacketizer.packetize(fragment, sampleBuffers);
+                // Now buffer contains MPEG-TS chunk
+            }
+        } catch (ex) {
+            console.error('Error:', ex);
+        } finally {
+            fs.close(fd);
+            fs.close(fdi);
+        }
+    });
 });
 ```
 
