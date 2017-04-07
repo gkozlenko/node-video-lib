@@ -124,8 +124,8 @@ const MP4Parser = require('node-video-lib').MP4Parser;
 
 Methods:
 
-* **parse(fd)** - Parse MP4 file
-    * **fd** *\<Integer\>* - File descriptor
+* **parse(source)** - Parse MP4 file
+    * **source** *\<Integer\>*|[*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Source (File descriptor or Buffer)
     * Return: [*\<Movie\>*](#movie)
 
 ### HLSPacketizer
@@ -185,9 +185,9 @@ const FragmentReader = require('node-video-lib').FragmentReader;
 
 Methods:
 
-* **readSamples(fragment, fd)** - Read samples data
+* **readSamples(fragment, source)** - Read samples data
     * **fragment** [*\<Fragment\>*](#fragment) - Movie fragment
-    * **fd** *\<Integer\>* - File descriptor
+    * **source** *\<Integer\>*|[*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Source (File descriptor or Buffer)
     * Return: *\<Array\>* Array of buffers
 
 ### Movie
@@ -271,8 +271,6 @@ Methods:
     * Return: *\<Number\>*
 * **relativeDuration()** - Fragment duration in seconds
     * Return: *\<Number\>*
-* **readSamples(fd)** - Read samples content
-    * **fd** *\<Integer\>* - File descriptor
 
 ### Track
 
