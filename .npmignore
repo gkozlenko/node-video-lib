@@ -1,5 +1,6 @@
 .idea
 .travis.yml
+.editorconfig
 test
 *.log
 resources
