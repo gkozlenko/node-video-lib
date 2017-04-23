@@ -22,7 +22,7 @@ npm install node-video-lib
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file.mp4', 'r', function(fd) {
+fs.open('/path/to/file.mp4', 'r', function(err, fd) {
     try {
         let movie = VideoLib.MP4Parser.parse(fd);
         // Work with movie
@@ -41,7 +41,7 @@ fs.open('/path/to/file.mp4', 'r', function(fd) {
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file.mp4', 'r', function(fd) {
+fs.open('/path/to/file.mp4', 'r', function(err, fd) {
     try {
         let movie = VideoLib.MP4Parser.parse(fd);
         let fragmentList = VideoLib.FragmentListBuilder.build(movie, 5);
@@ -65,7 +65,7 @@ fs.open('/path/to/file.mp4', 'r', function(fd) {
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file.mp4', 'r', function(fd) {
+fs.open('/path/to/file.mp4', 'r', function(err, fd) {
     try {
         let movie = VideoLib.MP4Parser.parse(fd);
         let fragmentList = VideoLib.FragmentListBuilder.build(movie, 5);
@@ -92,8 +92,8 @@ fs.open('/path/to/file.mp4', 'r', function(fd) {
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file.mp4', 'r', function(fd) {
-    fs.open('/path/to/index.idx', 'r', function(fdi) {
+fs.open('/path/to/file.mp4', 'r', function(err, fd) {
+    fs.open('/path/to/index.idx', 'r', function(err, fdi) {
         try {
             let fragmentList = VideoLib.FragmentListIndexer.read(fdi);
             for (let i = 0; i < fragmentList.count(); i++) {
@@ -119,7 +119,7 @@ fs.open('/path/to/file.mp4', 'r', function(fd) {
 A tool for parsing MP4 video files.
 
 ```javascript
-const MP4Parser = require('node-video-lib').MP4Parser;
+const MP4Parser = require('node-video-lib').MP4Parser
 ```
 
 Methods:
@@ -133,7 +133,7 @@ Methods:
 A tool for creating MPEG-TS chunks.
 
 ```javascript
-const HLSPacketizer = require('node-video-lib').HLSPacketizer;
+const HLSPacketizer = require('node-video-lib').HLSPacketizer
 ```
 
 Methods:
@@ -148,7 +148,7 @@ Methods:
 A tool for splitting the movie into a list of fragments.
 
 ```javascript
-const FragmentListBuilder = require('node-video-lib').FragmentListBuilder;
+const FragmentListBuilder = require('node-video-lib').FragmentListBuilder
 ```
 
 Methods:
@@ -163,7 +163,7 @@ Methods:
 A tool to work with index files.
 
 ```javascript
-const FragmentListIndexer = require('node-video-lib').FragmentListIndexer;
+const FragmentListIndexer = require('node-video-lib').FragmentListIndexer
 ```
 
 Methods:
@@ -180,7 +180,7 @@ Methods:
 A tool for reading samples data of the given movie fragment.
 
 ```javascript
-const FragmentReader = require('node-video-lib').FragmentReader;
+const FragmentReader = require('node-video-lib').FragmentReader
 ```
 
 Methods:
@@ -195,7 +195,7 @@ Methods:
 A movie class
 
 ```javascript
-const Movie = require('node-video-lib').Movie;
+const Movie = require('node-video-lib').Movie
 ```
 
 Properties:
@@ -224,7 +224,7 @@ Methods:
 A list of movie fragments class.
 
 ```javascript
-const FragmentList = require('node-video-lib').FragmentList;
+const FragmentList = require('node-video-lib').FragmentList
 ```
 
 Properties:
@@ -253,7 +253,7 @@ Methods:
 A movie fragment class
 
 ```javascript
-const Fragment = require('node-video-lib').Fragment;
+const Fragment = require('node-video-lib').Fragment
 ```
 
 Properties:
@@ -277,7 +277,7 @@ Methods:
 A general track class
 
 ```javascript
-const Track = require('node-video-lib').Track;
+const Track = require('node-video-lib').Track
 ```
 
 Properties:
@@ -297,7 +297,7 @@ Methods:
 An audio track class. Extends the general track class
 
 ```javascript
-const AudioTrack = require('node-video-lib').AudioTrack;
+const AudioTrack = require('node-video-lib').AudioTrack
 ```
 
 Properties:
@@ -311,7 +311,7 @@ Properties:
 A video track class. Extends the general track class
 
 ```javascript
-const VideoTrack = require('node-video-lib').VideoTrack;
+const VideoTrack = require('node-video-lib').VideoTrack
 ```
 
 Properties:
@@ -329,7 +329,7 @@ Methods:
 A general video sample class
 
 ```javascript
-const Sample = require('node-video-lib').Sample;
+const Sample = require('node-video-lib').Sample
 ```
 
 Properties:
@@ -349,7 +349,7 @@ Methods:
 An audio sample class. Extends the general sample class
 
 ```javascript
-const AudioSample = require('node-video-lib').AudioSample;
+const AudioSample = require('node-video-lib').AudioSample
 ```
 
 ### VideoSample
@@ -357,7 +357,7 @@ const AudioSample = require('node-video-lib').AudioSample;
 A video sample class. Extends the general sample class
 
 ```javascript
-const VideoSample = require('node-video-lib').VideoSample;
+const VideoSample = require('node-video-lib').VideoSample
 ```
 
 Properties:
