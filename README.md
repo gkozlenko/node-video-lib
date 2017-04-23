@@ -69,7 +69,7 @@ fs.open('/path/to/file.mp4', 'r', function(err, fd) {
     try {
         let movie = VideoLib.MP4Parser.parse(fd);
         let fragmentList = VideoLib.FragmentListBuilder.build(movie, 5);
-        fs.open('/path/to/index.idx', 'w', function(fdi) {
+        fs.open('/path/to/index.idx', 'w', function(err, fdi) {
             try {
                 VideoLib.FragmentListIndexer.index(fragmentList, fdi);
             } catch (ex) {
