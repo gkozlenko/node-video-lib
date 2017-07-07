@@ -6,7 +6,7 @@ Node.js Video Library.
 
 ## Limitations
 
-**This library works only with MP4 video files encoded using H.264 video codec and AAC audio codec.** 
+**This library works only with MP4 and FLV video files encoded using H.264 video codec and AAC audio codec.** 
 
 ## Installation
 
@@ -25,6 +25,25 @@ const VideoLib = require('node-video-lib');
 fs.open('/path/to/file.mp4', 'r', function(err, fd) {
     try {
         let movie = VideoLib.MP4Parser.parse(fd);
+        // Work with movie
+        console.log('Duration:', movie.relativeDuration());
+    } catch (ex) {
+        console.error('Error:', ex);
+    } finally {
+        fs.close(fd);
+    }
+});
+```
+
+### Parse FLV file
+
+```javascript
+const fs = require('fs');
+const VideoLib = require('node-video-lib');
+
+fs.open('/path/to/file.flv', 'r', function(err, fd) {
+    try {
+        let movie = VideoLib.FLVParser.parse(fd);
         // Work with movie
         console.log('Duration:', movie.relativeDuration());
     } catch (ex) {
@@ -125,6 +144,20 @@ const MP4Parser = require('node-video-lib').MP4Parser
 Methods:
 
 * **parse(source)** - Parse MP4 file
+    * **source** *\<Integer\>*|[*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Source (File descriptor or Buffer)
+    * Return: [*\<Movie\>*](#movie)
+
+### FLVParser
+
+A tool for parsing FLV video files.
+
+```javascript
+const FLVParser = require('node-video-lib').FLVParser
+```
+
+Methods:
+
+* **parse(source)** - Parse FLV file
     * **source** *\<Integer\>*|[*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Source (File descriptor or Buffer)
     * Return: [*\<Movie\>*](#movie)
 

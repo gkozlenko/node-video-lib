@@ -20,6 +20,7 @@
     "video",
     "mp4",
     "mov",
+    "flv",
     "parser",
     "packetizer",
     "hls",
