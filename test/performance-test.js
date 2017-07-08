@@ -12,10 +12,10 @@ const MP4_FILE = './resources/boomstream.mp4';
 const WARM_COUNT = 1;
 const TEST_COUNT = 40;
 
-describe('performance-test', function() {
+describe('performance-test', function () {
     this.timeout(120000);
 
-    before(function() {
+    before(function () {
         this.file = fs.openSync(MP4_FILE, 'r');
         for (let i = 0; i < WARM_COUNT; i++) {
             let movie = MP4Parser.parse(this.file);
@@ -26,11 +26,11 @@ describe('performance-test', function() {
         }
     });
 
-    after(function() {
+    after(function () {
         fs.closeSync(this.file);
     });
 
-    it('performance', function() {
+    it('performance', function () {
         let parseTime = 0, buildTime = 0, readerTime = 0, packetizeTime = 0;
         let startTime, endTime;
 

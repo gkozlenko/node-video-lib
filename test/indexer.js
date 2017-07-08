@@ -11,31 +11,32 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const chai = require('chai');
+const faker = require('faker');
 const expect = chai.expect;
 
 const MP4_FILE = './resources/boomstream.mp4';
 const INDEX_FILE = path.join(os.tmpdir(), path.basename(MP4_FILE) + '.idx');
 
-describe('FragmentListIndexer', function() {
-    before(function() {
+describe('FragmentListIndexer', function () {
+    before(function () {
         this.file = fs.openSync(MP4_FILE, 'r');
         this.indexFile = fs.openSync(INDEX_FILE, 'w+');
         this.movie = MP4Parser.parse(this.file);
     });
 
-    after(function() {
+    after(function () {
         fs.closeSync(this.file);
         fs.closeSync(this.indexFile);
         fs.unlinkSync(INDEX_FILE);
     });
 
-    describe('#index()', function() {
-        before(function() {
-            this.fragmentList = FragmentListBuilder.build(this.movie, 5);
+    describe('#index()', function () {
+        before(function () {
+            this.fragmentList = FragmentListBuilder.build(this.movie, faker.random.number({min: 3, max: 10}));
             FragmentListIndexer.index(this.fragmentList, this.indexFile);
         });
 
-        it('should create an index file', function() {
+        it('should create an index file', function () {
             let buffer = new Buffer(4);
             fs.readSync(this.indexFile, buffer, 0, buffer.length, 0);
             return [
@@ -47,14 +48,14 @@ describe('FragmentListIndexer', function() {
         });
     });
 
-    describe('#read()', function() {
-        before(function() {
-            this.fragmentList = FragmentListBuilder.build(this.movie, 5);
+    describe('#read()', function () {
+        before(function () {
+            this.fragmentList = FragmentListBuilder.build(this.movie, faker.random.number({min: 3, max: 10}));
             FragmentListIndexer.index(this.fragmentList, this.indexFile);
             this.readedFragmentList = FragmentListIndexer.read(this.indexFile);
         });
 
-        it('should read general information', function() {
+        it('should read general information', function () {
             return [
                 expect(this.readedFragmentList.fragmentDuration).to.be.equal(this.fragmentList.fragmentDuration),
                 expect(this.readedFragmentList.count()).to.be.equal(this.fragmentList.count()),
@@ -66,12 +67,13 @@ describe('FragmentListIndexer', function() {
             ];
         });
 
-        it('should read fragments data', function() {
-            let fragment = this.fragmentList.get(0);
+        it('should read fragments data', function () {
+            let number = faker.random.number({min: 0, max: this.fragmentList.count() - 1});
+            let fragment = this.fragmentList.get(number);
             let sampleBuffers = FragmentReader.readSamples(fragment, this.file);
             let packet = HLSPacketizer.packetize(fragment, sampleBuffers);
 
-            fragment = this.readedFragmentList.get(0);
+            fragment = this.readedFragmentList.get(number);
             sampleBuffers = FragmentReader.readSamples(fragment, this.file);
             expect(HLSPacketizer.packetize(fragment, sampleBuffers)).to.be.deep.equal(packet);
         });
