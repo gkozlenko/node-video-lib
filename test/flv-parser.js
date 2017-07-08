@@ -158,7 +158,7 @@ describe('FLVParser', function() {
             });
 
             it('should throws an error', function() {
-                return expect(() => FLVParser.parse(this.file)).to.throw('MOOV atom not found');
+                return expect(() => FLVParser.parse(this.file)).to.throw('FLV header not found');
             });
         });
     });

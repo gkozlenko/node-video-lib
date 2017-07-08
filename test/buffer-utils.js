@@ -6,20 +6,38 @@ const chai = require('chai');
 const faker = require('faker');
 const expect = chai.expect;
 
-describe('BufferUtils', function() {
+describe('BufferUtils', function () {
 
-    it('should write and read ordinary integers', function() {
-        let buffer = new Buffer(8);
-        let number = faker.random.number();
-        BufferUtils.writeUInt64BE(buffer, number, 0);
-        expect(BufferUtils.readUInt64BE(buffer, 0)).to.be.equal(number);
+    describe('64-bit integers', function () {
+        it('should write and read ordinary integers', function () {
+            let buffer = new Buffer(8);
+            let number = faker.random.number();
+            BufferUtils.writeInt64BE(buffer, number, 0);
+            expect(BufferUtils.readInt64BE(buffer, 0)).to.be.equal(number);
+        });
+
+        it('should write and read long integers', function () {
+            let buffer = new Buffer(8);
+            let number = faker.random.number({min: 111111111111, max: 999999999999999});
+            BufferUtils.writeInt64BE(buffer, number, 0);
+            expect(BufferUtils.readInt64BE(buffer, 0)).to.be.equal(number);
+        });
     });
 
-    it('should write and read long integers', function() {
-        let buffer = new Buffer(8);
-        let number = faker.random.number({min: 111111111111, max: 999999999999999});
-        BufferUtils.writeUInt64BE(buffer, number, 0);
-        expect(BufferUtils.readUInt64BE(buffer, 0)).to.be.equal(number);
+    describe('24-bit integers', function () {
+        it('should write and read ordinary integers', function () {
+            let buffer = new Buffer(3);
+            let number = faker.random.number();
+            BufferUtils.writeInt24BE(buffer, number, 0);
+            expect(BufferUtils.readInt24BE(buffer, 0)).to.be.equal(number);
+        });
+
+        it('should write and read 24-bit integers', function () {
+            let buffer = new Buffer(3);
+            let number = faker.random.number({min: 8388608, max: 16777215});
+            BufferUtils.writeInt24BE(buffer, number, 0);
+            expect(BufferUtils.readInt24BE(buffer, 0)).to.be.equal(number);
+        });
     });
 
 });
