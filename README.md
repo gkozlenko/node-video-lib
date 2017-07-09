@@ -10,11 +10,30 @@ Node.js Video Library.
 
 ## Installation
 
-```
-npm install node-video-lib
+```bash
+$ npm install node-video-lib
 ```
 
 ## Usage
+
+### Parse video file
+
+```javascript
+const fs = require('fs');
+const VideoLib = require('node-video-lib');
+
+fs.open('/path/to/file.(mp4|flv)', 'r', function(err, fd) {
+    try {
+        let movie = VideoLib.MovieParser.parse(fd);
+        // Work with movie
+        console.log('Duration:', movie.relativeDuration());
+    } catch (ex) {
+        console.error('Error:', ex);
+    } finally {
+        fs.close(fd);
+    }
+});
+```
 
 ### Parse MP4 file
 
@@ -60,9 +79,9 @@ fs.open('/path/to/file.flv', 'r', function(err, fd) {
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file.mp4', 'r', function(err, fd) {
+fs.open('/path/to/file.(mp4|flv)', 'r', function(err, fd) {
     try {
-        let movie = VideoLib.MP4Parser.parse(fd);
+        let movie = VideoLib.MovieParser.parse(fd);
         let fragmentList = VideoLib.FragmentListBuilder.build(movie, 5);
         for (let i = 0; i < fragmentList.count(); i++) {
             let fragment = fragmentList.get(i);
@@ -84,9 +103,9 @@ fs.open('/path/to/file.mp4', 'r', function(err, fd) {
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file.mp4', 'r', function(err, fd) {
+fs.open('/path/to/file.(mp4|flv)', 'r', function(err, fd) {
     try {
-        let movie = VideoLib.MP4Parser.parse(fd);
+        let movie = VideoLib.MovieParser.parse(fd);
         let fragmentList = VideoLib.FragmentListBuilder.build(movie, 5);
         fs.open('/path/to/index.idx', 'w', function(err, fdi) {
             try {
@@ -111,7 +130,7 @@ fs.open('/path/to/file.mp4', 'r', function(err, fd) {
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file.mp4', 'r', function(err, fd) {
+fs.open('/path/to/file.(mp4|flv)', 'r', function(err, fd) {
     fs.open('/path/to/index.idx', 'r', function(err, fdi) {
         try {
             let fragmentList = VideoLib.FragmentListIndexer.read(fdi);
@@ -132,6 +151,20 @@ fs.open('/path/to/file.mp4', 'r', function(err, fd) {
 ```
 
 ## Classes
+
+### MovieParser
+
+A tool for parsing video files (MP4 or FLV).
+
+```javascript
+const MovieParser = require('node-video-lib').MovieParser
+```
+
+Methods:
+
+* **parse(source)** - Parse video file
+    * **source** *\<Integer\>*|[*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Source (File descriptor or Buffer)
+    * Return: [*\<Movie\>*](#movie)
 
 ### MP4Parser
 
