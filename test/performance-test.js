@@ -1,14 +1,14 @@
 'use strict';
 
 const VideoLib = require('../index');
-const MP4Parser = VideoLib.MP4Parser;
+const MovieParser = VideoLib.MovieParser;
 const FragmentListBuilder = VideoLib.FragmentListBuilder;
 const FragmentReader = VideoLib.FragmentReader;
 const HLSPacketizer = VideoLib.HLSPacketizer;
 
 const fs = require('fs');
 
-const MP4_FILE = './resources/boomstream.mp4';
+const MOVIE_FILE = './resources/boomstream.mp4';
 const WARM_COUNT = 1;
 const TEST_COUNT = 40;
 
@@ -16,9 +16,9 @@ describe('performance-test', function () {
     this.timeout(120000);
 
     before(function () {
-        this.file = fs.openSync(MP4_FILE, 'r');
+        this.file = fs.openSync(MOVIE_FILE, 'r');
         for (let i = 0; i < WARM_COUNT; i++) {
-            let movie = MP4Parser.parse(this.file);
+            let movie = MovieParser.parse(this.file);
             let fragmentList = FragmentListBuilder.build(movie, 5);
             let fragment = fragmentList.get(0);
             let sampleBuffers = FragmentReader.readSamples(fragment, this.file);
@@ -36,7 +36,7 @@ describe('performance-test', function () {
 
         for (let i = 0; i < TEST_COUNT; i++) {
             startTime = Date.now();
-            let movie = MP4Parser.parse(this.file);
+            let movie = MovieParser.parse(this.file);
             endTime = Date.now();
             parseTime += endTime - startTime;
 

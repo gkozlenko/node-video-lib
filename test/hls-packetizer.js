@@ -1,7 +1,7 @@
 'use strict';
 
 const VideoLib = require('../index');
-const MP4Parser = VideoLib.MP4Parser;
+const MovieParser = VideoLib.MovieParser;
 const FragmentListBuilder = VideoLib.FragmentListBuilder;
 const FragmentReader = VideoLib.FragmentReader;
 const HLSPacketizer = VideoLib.HLSPacketizer;
@@ -11,12 +11,12 @@ const chai = require('chai');
 const faker = require('faker');
 const expect = chai.expect;
 
-const MP4_FILE = './resources/boomstream.mp4';
+const MOVIE_FILE = './resources/boomstream.mp4';
 
 describe('HLSPacketizer', function () {
     before(function () {
-        this.file = fs.openSync(MP4_FILE, 'r');
-        this.movie = MP4Parser.parse(this.file);
+        this.file = fs.openSync(MOVIE_FILE, 'r');
+        this.movie = MovieParser.parse(this.file);
     });
 
     after(function () {

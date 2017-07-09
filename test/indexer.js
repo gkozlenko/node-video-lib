@@ -1,7 +1,7 @@
 'use strict';
 
 const VideoLib = require('../index');
-const MP4Parser = VideoLib.MP4Parser;
+const MovieParser = VideoLib.MovieParser;
 const FragmentListBuilder = VideoLib.FragmentListBuilder;
 const FragmentListIndexer = VideoLib.FragmentListIndexer;
 const FragmentReader = VideoLib.FragmentReader;
@@ -14,14 +14,14 @@ const chai = require('chai');
 const faker = require('faker');
 const expect = chai.expect;
 
-const MP4_FILE = './resources/boomstream.mp4';
-const INDEX_FILE = path.join(os.tmpdir(), path.basename(MP4_FILE) + '.idx');
+const MOVIE_FILE = './resources/boomstream.mp4';
+const INDEX_FILE = path.join(os.tmpdir(), path.basename(MOVIE_FILE) + '.idx');
 
 describe('FragmentListIndexer', function () {
     before(function () {
-        this.file = fs.openSync(MP4_FILE, 'r');
+        this.file = fs.openSync(MOVIE_FILE, 'r');
         this.indexFile = fs.openSync(INDEX_FILE, 'w+');
-        this.movie = MP4Parser.parse(this.file);
+        this.movie = MovieParser.parse(this.file);
     });
 
     after(function () {
