@@ -59,6 +59,7 @@ describe('FragmentListIndexer', function () {
             return [
                 expect(this.readedFragmentList.fragmentDuration).to.be.equal(this.fragmentList.fragmentDuration),
                 expect(this.readedFragmentList.count()).to.be.equal(this.fragmentList.count()),
+                expect(this.readedFragmentList.size()).to.be.equal(this.fragmentList.size()),
                 expect(this.readedFragmentList.duration).to.be.equal(this.fragmentList.duration),
                 expect(this.readedFragmentList.timescale).to.be.equal(this.fragmentList.timescale),
                 expect(this.readedFragmentList.video).to.be.deep.equal(this.fragmentList.video),

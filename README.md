@@ -280,6 +280,8 @@ Methods:
     * Return: *\<Number\>*
 * **count()** - Fragments count
     * Return: *\<Integer\>*
+* **size()** - Samples size
+    * Return: *\<Integer\>*
 * **get(index)** - Get fragment by index
     * Return: [*\<Fragment\>*](#fragment)
 

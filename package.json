@@ -1,6 +1,6 @@
 {
   "name": "node-video-lib",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "Node.js Video Library",
   "license": "MIT",
   "main": "index",
