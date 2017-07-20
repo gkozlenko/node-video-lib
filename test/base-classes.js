@@ -156,5 +156,4 @@ describe('FragmentList', function () {
     });
 
     shouldHaveRelativeDuration();
-    shouldHaveResolution();
 });

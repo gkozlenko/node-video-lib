@@ -43,7 +43,7 @@ describe('FragmentListIndexer', function () {
                 expect(fs.fstatSync(this.indexFile).isFile()).to.be.equal(true),
                 expect(fs.fstatSync(this.indexFile).size).to.be.above(0),
                 expect(buffer.toString('ascii', 0, 3)).to.be.equal('idx'),
-                expect(buffer[3]).to.be.equal(1)
+                expect(buffer[3]).to.be.equal(2)
             ];
         });
     });
@@ -59,11 +59,10 @@ describe('FragmentListIndexer', function () {
             return [
                 expect(this.readedFragmentList.fragmentDuration).to.be.equal(this.fragmentList.fragmentDuration),
                 expect(this.readedFragmentList.count()).to.be.equal(this.fragmentList.count()),
-                expect(this.readedFragmentList.resolution()).to.be.equal(this.fragmentList.resolution()),
                 expect(this.readedFragmentList.duration).to.be.equal(this.fragmentList.duration),
                 expect(this.readedFragmentList.timescale).to.be.equal(this.fragmentList.timescale),
-                expect(this.readedFragmentList.videoExtraData).to.be.deep.equal(this.fragmentList.videoExtraData),
-                expect(this.readedFragmentList.audioExtraData).to.be.deep.equal(this.fragmentList.audioExtraData),
+                expect(this.readedFragmentList.video).to.be.deep.equal(this.fragmentList.video),
+                expect(this.readedFragmentList.audio).to.be.deep.equal(this.fragmentList.audio),
             ];
         });
 

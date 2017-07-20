@@ -17,20 +17,27 @@ const shouldBeValidMovie = function (fileName) {
     it('should have right relative duration value', function () {
         return expect(this.movie.relativeDuration()).to.be.within(61, 62);
     });
+
     it('should have two tracks', function () {
         return expect(this.movie.tracks.length).to.be.equal(2);
     });
+
     it('should have samples', function () {
         return expect(this.movie.samples().length).to.be.ok;
     });
+
     it('should have right number of samples', function () {
         return expect(this.movie.samples().length).to.be.equal(this.movie.videoTrack().samples.length + this.movie.audioTrack().samples.length);
     });
+
     it('should have right samples size', function () {
         let size = this.movie.samples().reduce(function (size, sample) {
             return size + sample.size;
         }, 0);
-        return expect(fs.statSync(fileName).size).to.be.above(size);
+        return [
+            expect(fs.statSync(fileName).size).to.be.above(size),
+            expect(this.movie.size()).to.eq(size)
+        ];
     });
 
     describe('#videoTrack()', function () {
@@ -41,20 +48,32 @@ const shouldBeValidMovie = function (fileName) {
         it('should be present', function () {
             return expect(this.videoTrack).to.be.ok;
         });
+
         it('should have right width', function () {
             return expect(this.videoTrack.width).to.be.equal(1280);
         });
+
         it('should have right height', function () {
             return expect(this.videoTrack.height).to.be.equal(720);
         });
+
         it('should have right relative duration value', function () {
             return expect(this.videoTrack.relativeDuration()).to.be.within(61, 62);
         });
+
         it('should have extraData', function () {
             return expect(this.videoTrack.extraData).to.be.ok;
         });
+
         it('should have samples', function () {
             return expect(this.videoTrack.samples.length).to.be.ok;
+        });
+
+        it('should have right samples size', function () {
+            let size = this.videoTrack.samples.reduce(function (size, sample) {
+                return size + sample.size;
+            }, 0);
+            return expect(this.videoTrack.size()).to.eq(size);
         });
     });
 
@@ -66,23 +85,36 @@ const shouldBeValidMovie = function (fileName) {
         it('should be present', function () {
             return expect(this.audioTrack).to.be.ok;
         });
+
         it('should have right channels', function () {
             return expect(this.audioTrack.channels).to.be.equal(2);
         });
+
         it('should have right sampleRate', function () {
             return expect(this.audioTrack.sampleRate).to.be.equal(44100);
         });
+
         it('should have right sampleSize', function () {
             return expect(this.audioTrack.sampleSize).to.be.equal(16);
         });
+
         it('should have right relative duration value', function () {
             return expect(this.audioTrack.relativeDuration()).to.be.within(61, 62);
         });
+
         it('should have extraData', function () {
             return expect(this.audioTrack.extraData).to.be.ok;
         });
+
         it('should have samples', function () {
             return expect(this.audioTrack.samples.length).to.be.ok;
+        });
+
+        it('should have right samples size', function () {
+            let size = this.audioTrack.samples.reduce(function (size, sample) {
+                return size + sample.size;
+            }, 0);
+            return expect(this.audioTrack.size()).to.eq(size);
         });
     });
 
@@ -90,6 +122,7 @@ const shouldBeValidMovie = function (fileName) {
         it('should have 6 fragments by 10 seconds', function () {
             return expect(FragmentListBuilder.build(this.movie, 10).count()).to.be.equal(6);
         });
+
         it('should have 11 fragments by 5 seconds', function () {
             return expect(FragmentListBuilder.build(this.movie, 5).count()).to.be.equal(11);
         });

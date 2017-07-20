@@ -22,47 +22,9 @@ $ npm install node-video-lib
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file.(mp4|flv)', 'r', function(err, fd) {
+fs.open('/path/to/file', 'r', function(err, fd) {
     try {
         let movie = VideoLib.MovieParser.parse(fd);
-        // Work with movie
-        console.log('Duration:', movie.relativeDuration());
-    } catch (ex) {
-        console.error('Error:', ex);
-    } finally {
-        fs.close(fd);
-    }
-});
-```
-
-### Parse MP4 file
-
-```javascript
-const fs = require('fs');
-const VideoLib = require('node-video-lib');
-
-fs.open('/path/to/file.mp4', 'r', function(err, fd) {
-    try {
-        let movie = VideoLib.MP4Parser.parse(fd);
-        // Work with movie
-        console.log('Duration:', movie.relativeDuration());
-    } catch (ex) {
-        console.error('Error:', ex);
-    } finally {
-        fs.close(fd);
-    }
-});
-```
-
-### Parse FLV file
-
-```javascript
-const fs = require('fs');
-const VideoLib = require('node-video-lib');
-
-fs.open('/path/to/file.flv', 'r', function(err, fd) {
-    try {
-        let movie = VideoLib.FLVParser.parse(fd);
         // Work with movie
         console.log('Duration:', movie.relativeDuration());
     } catch (ex) {
@@ -79,7 +41,7 @@ fs.open('/path/to/file.flv', 'r', function(err, fd) {
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file.(mp4|flv)', 'r', function(err, fd) {
+fs.open('/path/to/file', 'r', function(err, fd) {
     try {
         let movie = VideoLib.MovieParser.parse(fd);
         let fragmentList = VideoLib.FragmentListBuilder.build(movie, 5);
@@ -103,7 +65,7 @@ fs.open('/path/to/file.(mp4|flv)', 'r', function(err, fd) {
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file.(mp4|flv)', 'r', function(err, fd) {
+fs.open('/path/to/file', 'r', function(err, fd) {
     try {
         let movie = VideoLib.MovieParser.parse(fd);
         let fragmentList = VideoLib.FragmentListBuilder.build(movie, 5);
@@ -130,10 +92,11 @@ fs.open('/path/to/file.(mp4|flv)', 'r', function(err, fd) {
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file.(mp4|flv)', 'r', function(err, fd) {
+fs.open('/path/to/file', 'r', function(err, fd) {
     fs.open('/path/to/index.idx', 'r', function(err, fdi) {
         try {
             let fragmentList = VideoLib.FragmentListIndexer.read(fdi);
+            console.log('Duration:', fragmentList.relativeDuration());
             for (let i = 0; i < fragmentList.count(); i++) {
                 let fragment = fragmentList.get(i);
                 let sampleBuffers = VideoLib.FragmentReader.readSamples(fragment, fd);
@@ -276,6 +239,8 @@ Methods:
     * Return: *\<Number\>*
 * **resolution()** - Video resolution
     * Return: *\<String\>*
+* **size()** - Samples size
+    * Return: *\<Integer\>*
 * **addTrack(track)** - Add a track to the tracks list
     * **track** *\<Track\>* - Track
 * **videoTrack()** - Get the first video track
@@ -298,17 +263,21 @@ Properties:
 * **fragmentDuration** *\<Integer\>* - Target fragment duration
 * **duration** *\<Integer\>* - Movie duration
 * **timescale** *\<Integer\>* - Movie timescale
-* **videoExtraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Video codec information content
-* **audioExtraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Audio codec information content
-* **width** *\<Integer\>* - Video width
-* **height** *\<Integer\>* - Video height
+* **video** *\<Object\>* - Video info
+    * **timescale** *\<Integer\>* - Video timescale
+    * **extraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Video codec information
+    * **size** *\<Integer\>* - Video samples size
+    * **width** *\<Integer\>* - Video width
+    * **height** *\<Integer\>* - Video height
+* **audio** *\<Object\>* - Audio info
+    * **timescale** *\<Integer\>* - Audio timescale
+    * **extraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Audio codec information
+    * **size** *\<Integer\>* - Audio samples size
 
 Methods:
 
 * **relativeDuration()** - Movie duration in seconds
     * Return: *\<Number\>*
-* **resolution()** - Video resolution
-    * Return: *\<String\>*
 * **count()** - Fragments count
     * Return: *\<Integer\>*
 * **get(index)** - Get fragment by index
@@ -327,8 +296,8 @@ Properties:
 * **timestamp** *\<Integer\>* - Fragment timestamp
 * **duration** *\<Integer\>* - Fragment duration
 * **timescale** *\<Integer\>* - Fragment timescale
-* **videoExtraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Video codec information content
-* **audioExtraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Audio codec information content
+* **videoExtraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Video codec information
+* **audioExtraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Audio codec information
 * **samples** *\<Array\>* - List of fragment samples
 
 Methods:
@@ -350,13 +319,15 @@ Properties:
 
 * **duration** *\<Integer\>* - Track duration
 * **timescale** *\<Integer\>* - Track timescale
-* **extraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Codec information content
+* **extraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Codec information
 * **samples** *\<Array\>* - List of track samples
 
 Methods:
 
 * **relativeDuration()** - Track duration in seconds
     * Return: *\<Number\>*
+* **size()** - Samples size
+    * Return: *\<Integer\>*
 
 ### AudioTrack
 
