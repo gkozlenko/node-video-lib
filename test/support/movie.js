@@ -65,6 +65,10 @@ const shouldBeValidMovie = function (fileName) {
             return expect(this.videoTrack.extraData).to.be.ok;
         });
 
+        it('should have codec', function () {
+            return expect(this.videoTrack.codec).to.be.equal('avc1.64001f');
+        });
+
         it('should have samples', function () {
             return expect(this.videoTrack.samples.length).to.be.ok;
         });
@@ -104,6 +108,10 @@ const shouldBeValidMovie = function (fileName) {
 
         it('should have extraData', function () {
             return expect(this.audioTrack.extraData).to.be.ok;
+        });
+
+        it('should have codec', function () {
+            return expect(this.audioTrack.codec).to.be.equal('mp4a.40.2');
         });
 
         it('should have samples', function () {
