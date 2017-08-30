@@ -265,12 +265,14 @@ Properties:
 * **timescale** *\<Integer\>* - Movie timescale
 * **video** *\<Object\>* - Video info
     * **timescale** *\<Integer\>* - Video timescale
+    * **codec** *\<String\>* - Codec string
     * **extraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Video codec information
     * **size** *\<Integer\>* - Video samples size
     * **width** *\<Integer\>* - Video width
     * **height** *\<Integer\>* - Video height
 * **audio** *\<Object\>* - Audio info
     * **timescale** *\<Integer\>* - Audio timescale
+    * **codec** *\<String\>* - Codec string
     * **extraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Audio codec information
     * **size** *\<Integer\>* - Audio samples size
 
@@ -321,6 +323,7 @@ Properties:
 
 * **duration** *\<Integer\>* - Track duration
 * **timescale** *\<Integer\>* - Track timescale
+* **codec** *\<String\>* - Codec string
 * **extraData** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Codec information
 * **samples** *\<Array\>* - List of track samples
 
