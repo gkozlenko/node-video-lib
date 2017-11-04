@@ -2,12 +2,12 @@
 
 describe('node-video-lib', function () {
 
-    require('./buffer-utils');
     require('./base-classes');
-    require('./mp4-parser');
+    require('./buffer-utils');
     require('./flv-parser');
-    require('./movie-parser');
     require('./hls-packetizer');
     require('./indexer');
+    require('./movie-parser');
+    require('./mp4-parser');
 
 });

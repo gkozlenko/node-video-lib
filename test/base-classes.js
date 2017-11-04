@@ -156,5 +156,16 @@ describe('FragmentList', function () {
     });
 
     shouldHaveRelativeDuration();
-    shouldHaveResolution();
+
+    describe('#size()', function () {
+        it('should return right size value', function () {
+            this.record.audio = {
+                size: faker.random.number()
+            };
+            this.record.video = {
+                size: faker.random.number()
+            };
+            expect(this.record.size()).to.be.equal(this.record.audio.size + this.record.video.size);
+        });
+    });
 });

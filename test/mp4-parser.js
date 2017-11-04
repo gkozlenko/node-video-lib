@@ -2,12 +2,9 @@
 
 const VideoLib = require('../index');
 const MP4Parser = VideoLib.MP4Parser;
-const FragmentListBuilder = VideoLib.FragmentListBuilder;
-const FragmentReader = VideoLib.FragmentReader;
 
 const fs = require('fs');
 const chai = require('chai');
-const faker = require('faker');
 const expect = chai.expect;
 
 const MovieSupport = require('./support/movie');
