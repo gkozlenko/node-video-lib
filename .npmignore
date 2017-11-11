@@ -1,6 +1,7 @@
 .idea
 .travis.yml
 .editorconfig
+.eslintrc
 test
 *.log
 resources
