@@ -30,7 +30,7 @@ fs.open('/path/to/file', 'r', function(err, fd) {
     } catch (ex) {
         console.error('Error:', ex);
     } finally {
-        fs.close(fd);
+        fs.closeSync(fd);
     }
 });
 ```
@@ -54,7 +54,7 @@ fs.open('/path/to/file', 'r', function(err, fd) {
     } catch (ex) {
         console.error('Error:', ex);
     } finally {
-        fs.close(fd);
+        fs.closeSync(fd);
     }
 });
 ```
@@ -82,7 +82,7 @@ fs.open('/path/to/file', 'r', function(err, fd) {
     } catch (ex) {
         console.error('Error:', ex);
     } finally {
-        fs.close(fd);
+        fs.closeSync(fd);
     }
 });
 ```
@@ -107,8 +107,8 @@ fs.open('/path/to/file', 'r', function(err, fd) {
         } catch (ex) {
             console.error('Error:', ex);
         } finally {
-            fs.close(fd);
-            fs.close(fdi);
+            fs.closeSync(fd);
+            fs.closeSync(fdi);
         }
     });
 });
