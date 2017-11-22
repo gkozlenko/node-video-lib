@@ -36,7 +36,7 @@ const shouldBeValidMovie = function (fileName) {
         }, 0);
         return [
             expect(fs.statSync(fileName).size).to.be.above(size),
-            expect(this.movie.size()).to.eq(size)
+            expect(this.movie.size()).to.eq(size),
         ];
     });
 
@@ -157,5 +157,5 @@ const shouldBeValidMovie = function (fileName) {
 };
 
 module.exports = {
-    shouldBeValidMovie
+    shouldBeValidMovie,
 };
