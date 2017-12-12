@@ -9,7 +9,7 @@ const chai = require('chai');
 const faker = require('faker');
 const expect = chai.expect;
 
-const shouldBeValidMovie = function (fileName) {
+const shouldBeValidMovie = function (fileName, videoCodec, audioCodec) {
     it('should be instance of VideoLib.Movie', function () {
         return expect(this.movie).to.be.instanceof(VideoLib.Movie);
     });
@@ -66,7 +66,7 @@ const shouldBeValidMovie = function (fileName) {
         });
 
         it('should have codec', function () {
-            return expect(this.videoTrack.codec).to.be.equal('avc1.64001f');
+            return expect(this.videoTrack.codec).to.be.equal(videoCodec);
         });
 
         it('should have samples', function () {
@@ -111,7 +111,7 @@ const shouldBeValidMovie = function (fileName) {
         });
 
         it('should have codec', function () {
-            return expect(this.audioTrack.codec).to.be.equal('mp4a.40.2');
+            return expect(this.audioTrack.codec).to.be.equal(audioCodec);
         });
 
         it('should have samples', function () {
