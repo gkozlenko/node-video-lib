@@ -1,6 +1,6 @@
 {
   "name": "node-video-lib",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Node.js Video Library",
   "license": "MIT",
   "main": "index",
@@ -31,12 +31,12 @@
     "prepublish": "npm prune",
     "test": "mocha ./test/tests.js",
     "performance-test": "mocha ./test/performance-test.js",
-    "eslint": "eslint \"lib/**\""
+    "lint": "eslint \"lib/**\""
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "eslint": "^4.17.0",
+    "eslint": "^4.18.2",
     "faker": "^4.1.0",
-    "mocha": "^5.0.0"
+    "mocha": "^5.0.4"
   }
 }
