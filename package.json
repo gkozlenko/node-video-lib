@@ -1,6 +1,6 @@
 {
   "name": "node-video-lib",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Node.js Video Library",
   "license": "MIT",
   "main": "index",
@@ -25,7 +25,10 @@
     "packetizer",
     "hls",
     "m3u8",
-    "mpeg-ts"
+    "mpegts",
+    "mpeg-ts",
+    "tsmuxer",
+    "ts-muxer"
   ],
   "scripts": {
     "prepublish": "npm prune",
