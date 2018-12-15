@@ -1,11 +1,11 @@
 {
   "name": "node-video-lib",
-  "version": "2.0.1",
+  "version": "2.0.5",
   "description": "Node.js Video Library",
   "license": "MIT",
   "main": "index",
   "author": {
-    "name": "Gennadiy Kozlenko",
+    "name": "Gennady Kozlenko",
     "email": "gennadiy.kozlenko@gmail.com",
     "url": "https://github.com/pipll/"
   },
@@ -25,18 +25,21 @@
     "packetizer",
     "hls",
     "m3u8",
-    "mpeg-ts"
+    "mpegts",
+    "mpeg-ts",
+    "tsmuxer",
+    "ts-muxer"
   ],
   "scripts": {
     "prepublish": "npm prune",
     "test": "mocha ./test/tests.js",
     "performance-test": "mocha ./test/performance-test.js",
-    "eslint": "eslint \"lib/**\""
+    "lint": "eslint \"lib/**\""
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "eslint": "^4.12.1",
+    "chai": "^4.2.0",
+    "eslint": "^5.10.0",
     "faker": "^4.1.0",
-    "mocha": "^4.0.1"
+    "mocha": "^5.2.0"
   }
 }
