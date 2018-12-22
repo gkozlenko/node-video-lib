@@ -10,7 +10,7 @@ const fs = require('fs');
 
 const MOVIE_FILE = './resources/boomstream.mp4';
 const WARM_COUNT = 1;
-const TEST_COUNT = 40;
+const TEST_COUNT = 100;
 
 describe('performance-test', function () {
     this.timeout(120000);
@@ -61,6 +61,7 @@ describe('performance-test', function () {
         console.log(`Builder: ${buildTime / TEST_COUNT} ms`);
         console.log(`Reader: ${readerTime / TEST_COUNT} ms`);
         console.log(`Packetizer: ${packetizeTime / TEST_COUNT} ms`);
+        console.log(`Memory used: ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} MB`);
     });
 
 });
