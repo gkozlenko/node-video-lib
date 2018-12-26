@@ -9,7 +9,7 @@ Node.js Video Library
 
 ## Limitations
 
-**This library works only with MP4 and FLV video files encoded using H.264 video codec and AAC audio codec.** 
+**This library works only with MP4 and FLV video files encoded using H.264/H.265 video codecs and AAC audio codec.** 
 
 ## Installation
 
@@ -314,6 +314,10 @@ Methods:
     * Return: *\<Number\>*
 * **relativeDuration()** - Fragment duration in seconds
     * Return: *\<Number\>*
+* **hasVideo()** - Fragment has a video track
+    * Return: *\<Boolean\>*
+* **hasAudio()** - Fragment has an audio track
+    * Return: *\<Boolean\>*
 
 ### Track
 
