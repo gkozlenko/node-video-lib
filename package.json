@@ -1,6 +1,6 @@
 {
   "name": "node-video-lib",
-  "version": "2.0.5",
+  "version": "2.1.0",
   "description": "Node.js Video Library",
   "license": "MIT",
   "main": "index",
@@ -14,7 +14,7 @@
     "url": "https://github.com/pipll/node-video-lib.git"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=6.0.0"
   },
   "keywords": [
     "video",
@@ -28,7 +28,10 @@
     "mpegts",
     "mpeg-ts",
     "tsmuxer",
-    "ts-muxer"
+    "ts-muxer",
+    "h264",
+    "h265",
+    "hevc"
   ],
   "scripts": {
     "prepublish": "npm prune",
@@ -38,7 +41,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^5.10.0",
+    "eslint": "^5.11.1",
     "faker": "^4.1.0",
     "mocha": "^5.2.0"
   }

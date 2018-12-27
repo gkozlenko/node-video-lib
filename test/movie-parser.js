@@ -26,7 +26,7 @@ describe('MovieParser', function () {
                 fs.closeSync(this.file);
             });
 
-            MovieSupport.shouldBeValidMovie(MP4_FILE);
+            MovieSupport.shouldBeValidMovie(MP4_FILE, 'avc1.64001f', 'mp4a.40.2');
         });
 
         describe('when source is a valid MP4 Buffer', function () {
@@ -41,7 +41,7 @@ describe('MovieParser', function () {
                 fs.closeSync(this.file);
             });
 
-            MovieSupport.shouldBeValidMovie(MP4_FILE);
+            MovieSupport.shouldBeValidMovie(MP4_FILE, 'avc1.64001f', 'mp4a.40.2');
         });
 
         describe('when source is a valid FLV file', function () {
@@ -54,7 +54,7 @@ describe('MovieParser', function () {
                 fs.closeSync(this.file);
             });
 
-            MovieSupport.shouldBeValidMovie(FLV_FILE);
+            MovieSupport.shouldBeValidMovie(FLV_FILE, 'avc1.64001f', 'mp4a.40.2');
         });
 
         describe('when source is a valid FLV Buffer', function () {
@@ -69,7 +69,7 @@ describe('MovieParser', function () {
                 fs.closeSync(this.file);
             });
 
-            MovieSupport.shouldBeValidMovie(FLV_FILE);
+            MovieSupport.shouldBeValidMovie(FLV_FILE, 'avc1.64001f', 'mp4a.40.2');
         });
 
         describe('when source is not valid', function () {

@@ -25,7 +25,7 @@ describe('FLVParser', function () {
                 fs.closeSync(this.file);
             });
 
-            MovieSupport.shouldBeValidMovie(FLV_FILE);
+            MovieSupport.shouldBeValidMovie(FLV_FILE, 'avc1.64001f', 'mp4a.40.2');
         });
 
         describe('when source is a valid Buffer', function () {
@@ -40,7 +40,7 @@ describe('FLVParser', function () {
                 fs.closeSync(this.file);
             });
 
-            MovieSupport.shouldBeValidMovie(FLV_FILE);
+            MovieSupport.shouldBeValidMovie(FLV_FILE, 'avc1.64001f', 'mp4a.40.2');
         });
 
         describe('when source is not valid', function () {
