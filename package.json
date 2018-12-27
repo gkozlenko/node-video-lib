@@ -30,7 +30,8 @@
     "tsmuxer",
     "ts-muxer",
     "h264",
-    "h265"
+    "h265",
+    "hevc"
   ],
   "scripts": {
     "prepublish": "npm prune",
@@ -40,7 +41,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^5.10.0",
+    "eslint": "^5.11.1",
     "faker": "^4.1.0",
     "mocha": "^5.2.0"
   }
