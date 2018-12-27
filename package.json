@@ -34,7 +34,7 @@
     "hevc"
   ],
   "scripts": {
-    "prepublish": "npm prune",
+    "prepare": "npm prune",
     "test": "mocha ./test/tests.js",
     "performance-test": "mocha ./test/performance-test.js",
     "lint": "eslint \"lib/**\""
