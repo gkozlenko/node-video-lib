@@ -43,7 +43,7 @@ describe('FragmentListIndexer', function () {
                 expect(fs.fstatSync(this.indexFile).isFile()).to.be.equal(true),
                 expect(fs.fstatSync(this.indexFile).size).to.be.above(0),
                 expect(buffer.toString('ascii', 0, 3)).to.be.equal('idx'),
-                expect(buffer[3]).to.be.equal(2)
+                expect(buffer[3]).to.be.equal(2),
             ];
         });
     });

@@ -1,6 +1,9 @@
 .idea
 .travis.yml
 .editorconfig
+.eslintrc
+package-lock.json
 test
 *.log
 resources
+build

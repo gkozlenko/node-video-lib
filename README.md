@@ -1,12 +1,15 @@
 # node-video-lib
 
-[![Build Status](https://travis-ci.org/pipll/node-video-lib.svg?branch=master)](https://travis-ci.org/pipll/node-video-lib) [![npm](https://img.shields.io/npm/v/node-video-lib.svg)](https://www.npmjs.com/package/node-video-lib) [![Code Climate](https://codeclimate.com/github/pipll/node-video-lib/badges/gpa.svg)](https://codeclimate.com/github/pipll/node-video-lib) ![GitHub license](https://img.shields.io/github/license/pipll/node-video-lib.svg)
+[![Build Status](https://travis-ci.org/pipll/node-video-lib.svg?branch=master)](https://travis-ci.org/pipll/node-video-lib)
+[![npm](https://img.shields.io/npm/v/node-video-lib.svg)](https://www.npmjs.com/package/node-video-lib)
+[![Code Climate](https://codeclimate.com/github/pipll/node-video-lib/badges/gpa.svg)](https://codeclimate.com/github/pipll/node-video-lib)
+[![GitHub license](https://img.shields.io/github/license/pipll/node-video-lib.svg)](https://github.com/pipll/node-video-lib/blob/master/LICENSE)
 
-Node.js Video Library.
+Node.js Video Library / MP4 & FLV parser / HLS muxer
 
 ## Limitations
 
-**This library works only with MP4 and FLV video files encoded using H.264 video codec and AAC audio codec.** 
+**This library works only with MP4 and FLV video files encoded using H.264/H.265 video codecs and AAC audio codec.** 
 
 ## Installation
 
@@ -30,7 +33,7 @@ fs.open('/path/to/file', 'r', function(err, fd) {
     } catch (ex) {
         console.error('Error:', ex);
     } finally {
-        fs.close(fd);
+        fs.closeSync(fd);
     }
 });
 ```
@@ -54,7 +57,7 @@ fs.open('/path/to/file', 'r', function(err, fd) {
     } catch (ex) {
         console.error('Error:', ex);
     } finally {
-        fs.close(fd);
+        fs.closeSync(fd);
     }
 });
 ```
@@ -69,6 +72,7 @@ fs.open('/path/to/file', 'r', function(err, fd) {
     try {
         let movie = VideoLib.MovieParser.parse(fd);
         let fragmentList = VideoLib.FragmentListBuilder.build(movie, 5);
+        console.log('Duration:', fragmentList.relativeDuration());
         fs.open('/path/to/index.idx', 'w', function(err, fdi) {
             try {
                 VideoLib.FragmentListIndexer.index(fragmentList, fdi);
@@ -81,7 +85,7 @@ fs.open('/path/to/file', 'r', function(err, fd) {
     } catch (ex) {
         console.error('Error:', ex);
     } finally {
-        fs.close(fd);
+        fs.closeSync(fd);
     }
 });
 ```
@@ -106,8 +110,8 @@ fs.open('/path/to/file', 'r', function(err, fd) {
         } catch (ex) {
             console.error('Error:', ex);
         } finally {
-            fs.close(fd);
-            fs.close(fdi);
+            fs.closeSync(fd);
+            fs.closeSync(fdi);
         }
     });
 });
@@ -310,6 +314,10 @@ Methods:
     * Return: *\<Number\>*
 * **relativeDuration()** - Fragment duration in seconds
     * Return: *\<Number\>*
+* **hasVideo()** - Fragment has a video track
+    * Return: *\<Boolean\>*
+* **hasAudio()** - Fragment has an audio track
+    * Return: *\<Boolean\>*
 
 ### Track
 
