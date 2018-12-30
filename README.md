@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/pipll/node-video-lib/badges/gpa.svg)](https://codeclimate.com/github/pipll/node-video-lib)
 [![GitHub license](https://img.shields.io/github/license/pipll/node-video-lib.svg)](https://github.com/pipll/node-video-lib/blob/master/LICENSE)
 
-Node.js Video Library
+Node.js Video Library / MP4 & FLV parser / HLS muxer
 
 ## Limitations
 

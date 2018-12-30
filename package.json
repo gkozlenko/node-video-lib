@@ -1,6 +1,6 @@
 {
   "name": "node-video-lib",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Node.js Video Library",
   "license": "MIT",
   "main": "index",
@@ -29,6 +29,7 @@
     "mpeg-ts",
     "tsmuxer",
     "ts-muxer",
+    "aac",
     "h264",
     "h265",
     "hevc"
