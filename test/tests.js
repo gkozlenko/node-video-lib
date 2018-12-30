@@ -9,5 +9,6 @@ describe('node-video-lib', function () {
     require('./indexer');
     require('./movie-parser');
     require('./mp4-parser');
+    require('./sample-counter');
 
 });
