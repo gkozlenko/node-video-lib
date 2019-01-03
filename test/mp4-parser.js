@@ -11,6 +11,7 @@ const MovieSupport = require('./support/movie');
 
 const MP4_FILE = './resources/boomstream.mp4';
 const MP4_HEVC_FILE = './resources/boomstream_hevc.mp4';
+const FLV_FILE = './resources/boomstream.flv';
 const INVALID_FILE = './resources/picture.jpg';
 
 describe('MP4Parser', function () {
@@ -92,6 +93,70 @@ describe('MP4Parser', function () {
 
             it('should throws an error', function () {
                 return expect(() => MP4Parser.parse(this.file)).to.throw('MOOV atom not found');
+            });
+        });
+
+        describe('when source is FLV file', function () {
+            before(function () {
+                this.file = fs.openSync(FLV_FILE, 'r');
+            });
+
+            after(function () {
+                fs.closeSync(this.file);
+            });
+
+            it('should throws an error', function () {
+                return expect(() => MP4Parser.parse(this.file)).to.throw('MOOV atom not found');
+            });
+        });
+    });
+
+    describe('#check', function () {
+        describe('when buffer contains header of MP4 file', function () {
+            before(function () {
+                this.file = fs.openSync(MP4_FILE, 'r');
+                this.buffer = new Buffer(8);
+                fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
+            });
+
+            after(function () {
+                fs.closeSync(this.file);
+            });
+
+            it('should return true', function () {
+                expect(MP4Parser.check(this.buffer)).to.be.equal(true);
+            });
+        });
+
+        describe('when buffer contains header of FLV file', function () {
+            before(function () {
+                this.file = fs.openSync(FLV_FILE, 'r');
+                this.buffer = new Buffer(8);
+                fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
+            });
+
+            after(function () {
+                fs.closeSync(this.file);
+            });
+
+            it('should return false', function () {
+                expect(MP4Parser.check(this.buffer)).to.be.equal(false);
+            });
+        });
+
+        describe('when buffer contains header of invalid file', function () {
+            before(function () {
+                this.file = fs.openSync(INVALID_FILE, 'r');
+                this.buffer = new Buffer(8);
+                fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
+            });
+
+            after(function () {
+                fs.closeSync(this.file);
+            });
+
+            it('should return false', function () {
+                expect(MP4Parser.check(this.buffer)).to.be.equal(false);
             });
         });
     });

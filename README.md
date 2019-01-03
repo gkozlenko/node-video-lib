@@ -146,6 +146,9 @@ Methods:
 * **parse(source)** - Parse MP4 file
     * **source** *\<Integer\>*|[*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Source (File descriptor or Buffer)
     * Return: [*\<Movie\>*](#movie)
+* **check(buffer)** - Check MP4 header
+    * **buffer** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - File header (first 8 bytes)
+    * Return: *\<boolean\>*
 
 ### FLVParser
 
@@ -160,6 +163,9 @@ Methods:
 * **parse(source)** - Parse FLV file
     * **source** *\<Integer\>*|[*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Source (File descriptor or Buffer)
     * Return: [*\<Movie\>*](#movie)
+* **check(buffer)** - Check FLV header
+    * **buffer** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - File header (first 8 bytes)
+    * Return: *\<boolean\>*
 
 ### HLSPacketizer
 
@@ -253,6 +259,8 @@ Methods:
     * Return: *\<AudioTrack\>*
 * **samples()** - Get a list of movie samples ordered by relative timestamp
     * Return: *\<Array\>*
+* **ensureDuration()** - Calculate and set duration based on the track durations (only if duration is zero)
+    * Return: *\<Number\>*
 
 ### FragmentList
 
@@ -338,6 +346,8 @@ Properties:
 Methods:
 
 * **relativeDuration()** - Track duration in seconds
+    * Return: *\<Number\>*
+* **ensureDuration()** - Calculate and set duration based on the sample durations (only if duration is zero)
     * Return: *\<Number\>*
 * **size()** - Samples size
     * Return: *\<Integer\>*
