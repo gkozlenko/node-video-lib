@@ -37,7 +37,7 @@ describe('MP4Parser', function () {
             describe('when source is a valid Buffer', function () {
                 before(function () {
                     this.file = fs.openSync(FILE_NAME, 'r');
-                    this.buffer = new Buffer(fs.fstatSync(this.file).size);
+                    this.buffer = Buffer.allocUnsafe(fs.fstatSync(this.file).size);
                     fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
                     this.movie = MP4Parser.parse(this.buffer);
                 });
@@ -69,7 +69,7 @@ describe('MP4Parser', function () {
             describe('when source is a valid Buffer', function () {
                 before(function () {
                     this.file = fs.openSync(FILE_NAME, 'r');
-                    this.buffer = new Buffer(fs.fstatSync(this.file).size);
+                    this.buffer = Buffer.allocUnsafe(fs.fstatSync(this.file).size);
                     fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
                     this.movie = MP4Parser.parse(this.buffer);
                 });
@@ -115,7 +115,7 @@ describe('MP4Parser', function () {
         describe('when buffer contains header of MP4 file', function () {
             before(function () {
                 this.file = fs.openSync(MP4_FILE, 'r');
-                this.buffer = new Buffer(8);
+                this.buffer = Buffer.allocUnsafe(8);
                 fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
             });
 
@@ -131,7 +131,7 @@ describe('MP4Parser', function () {
         describe('when buffer contains header of FLV file', function () {
             before(function () {
                 this.file = fs.openSync(FLV_FILE, 'r');
-                this.buffer = new Buffer(8);
+                this.buffer = Buffer.allocUnsafe(8);
                 fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
             });
 
@@ -147,7 +147,7 @@ describe('MP4Parser', function () {
         describe('when buffer contains header of invalid file', function () {
             before(function () {
                 this.file = fs.openSync(INVALID_FILE, 'r');
-                this.buffer = new Buffer(8);
+                this.buffer = Buffer.allocUnsafe(8);
                 fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
             });
 

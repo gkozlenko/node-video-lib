@@ -32,7 +32,7 @@ describe('FLVParser', function () {
         describe('when source is a valid Buffer', function () {
             before(function () {
                 this.file = fs.openSync(FLV_FILE, 'r');
-                this.buffer = new Buffer(fs.fstatSync(this.file).size);
+                this.buffer = Buffer.allocUnsafe(fs.fstatSync(this.file).size);
                 fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
                 this.movie = FLVParser.parse(this.buffer);
             });
@@ -77,7 +77,7 @@ describe('FLVParser', function () {
         describe('when buffer contains header of FLV file', function () {
             before(function () {
                 this.file = fs.openSync(FLV_FILE, 'r');
-                this.buffer = new Buffer(8);
+                this.buffer = Buffer.allocUnsafe(8);
                 fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
             });
 
@@ -93,7 +93,7 @@ describe('FLVParser', function () {
         describe('when buffer contains header of MP4 file', function () {
             before(function () {
                 this.file = fs.openSync(MP4_FILE, 'r');
-                this.buffer = new Buffer(8);
+                this.buffer = Buffer.allocUnsafe(8);
                 fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
             });
 
@@ -109,7 +109,7 @@ describe('FLVParser', function () {
         describe('when buffer contains header of invalid file', function () {
             before(function () {
                 this.file = fs.openSync(INVALID_FILE, 'r');
-                this.buffer = new Buffer(8);
+                this.buffer = Buffer.allocUnsafe(8);
                 fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
             });
 

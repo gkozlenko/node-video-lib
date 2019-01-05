@@ -37,7 +37,7 @@ describe('FragmentListIndexer', function () {
         });
 
         it('should create an index file', function () {
-            let buffer = new Buffer(4);
+            let buffer = Buffer.allocUnsafe(4);
             fs.readSync(this.indexFile, buffer, 0, buffer.length, 0);
             return [
                 expect(fs.fstatSync(this.indexFile).isFile()).to.be.equal(true),

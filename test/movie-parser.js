@@ -32,7 +32,7 @@ describe('MovieParser', function () {
         describe('when source is a valid MP4 Buffer', function () {
             before(function () {
                 this.file = fs.openSync(MP4_FILE, 'r');
-                this.buffer = new Buffer(fs.fstatSync(this.file).size);
+                this.buffer = Buffer.allocUnsafe(fs.fstatSync(this.file).size);
                 fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
                 this.movie = MovieParser.parse(this.buffer);
             });
@@ -60,7 +60,7 @@ describe('MovieParser', function () {
         describe('when source is a valid FLV Buffer', function () {
             before(function () {
                 this.file = fs.openSync(FLV_FILE, 'r');
-                this.buffer = new Buffer(fs.fstatSync(this.file).size);
+                this.buffer = Buffer.allocUnsafe(fs.fstatSync(this.file).size);
                 fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
                 this.movie = MovieParser.parse(this.buffer);
             });
