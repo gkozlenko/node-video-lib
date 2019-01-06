@@ -1,7 +1,7 @@
 {
   "name": "node-video-lib",
-  "version": "2.1.2",
-  "description": "Node.js Video Library",
+  "version": "2.1.3",
+  "description": "Node.js Video Library / MP4 & FLV parser / HLS muxer",
   "license": "MIT",
   "main": "index",
   "author": {
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^5.11.1",
+    "eslint": "^5.12.0",
     "faker": "^4.1.0",
     "mocha": "^5.2.0"
   }
