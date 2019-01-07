@@ -1,9 +1,10 @@
 # node-video-lib
 
 [![Build Status](https://travis-ci.org/pipll/node-video-lib.svg?branch=master)](https://travis-ci.org/pipll/node-video-lib)
-[![npm](https://img.shields.io/npm/v/node-video-lib.svg)](https://www.npmjs.com/package/node-video-lib)
-[![Code Climate](https://codeclimate.com/github/pipll/node-video-lib/badges/gpa.svg)](https://codeclimate.com/github/pipll/node-video-lib)
-[![GitHub license](https://img.shields.io/github/license/pipll/node-video-lib.svg)](https://github.com/pipll/node-video-lib/blob/master/LICENSE)
+[![npm Version](https://img.shields.io/npm/v/node-video-lib.svg)](https://www.npmjs.com/package/node-video-lib)
+[![Maintainability](https://api.codeclimate.com/v1/badges/6391536e9bf00caf1c56/maintainability)](https://codeclimate.com/github/pipll/node-video-lib/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/6391536e9bf00caf1c56/test_coverage)](https://codeclimate.com/github/pipll/node-video-lib/test_coverage)
+[![GitHub License](https://img.shields.io/github/license/pipll/node-video-lib.svg)](https://github.com/pipll/node-video-lib/blob/master/LICENSE)
 
 Node.js Video Library / MP4 & FLV parser / HLS muxer
 
