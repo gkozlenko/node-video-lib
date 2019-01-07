@@ -7,3 +7,5 @@ test
 *.log
 resources
 build
+.nyc_output
+coverage

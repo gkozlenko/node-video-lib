@@ -36,7 +36,7 @@
   ],
   "scripts": {
     "prepare": "npm prune",
-    "test": "mocha ./test/tests.js",
+    "test": "nyc --reporter=lcov --reporter=text mocha ./test/tests.js",
     "performance-test": "mocha ./test/performance-test.js",
     "lint": "eslint \"lib/**\""
   },
@@ -44,6 +44,7 @@
     "chai": "^4.2.0",
     "eslint": "^5.12.0",
     "faker": "^4.1.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0"
   }
 }
