@@ -1,17 +1,17 @@
 {
   "name": "node-video-lib",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "Node.js Video Library / MP4 & FLV parser / HLS muxer",
   "license": "MIT",
   "main": "index",
   "author": {
     "name": "Gennady Kozlenko",
     "email": "gennadiy.kozlenko@gmail.com",
-    "url": "https://github.com/pipll/"
+    "url": "https://github.com/gkozlenko/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pipll/node-video-lib.git"
+    "url": "https://github.com/gkozlenko/node-video-lib.git"
   },
   "engines": {
     "node": ">=6.0.0"
