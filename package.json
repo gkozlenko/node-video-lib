@@ -36,16 +36,17 @@
   ],
   "scripts": {
     "prepare": "npm prune",
-    "test": "nyc --reporter=lcov mocha ./test/tests.js",
+    "test": "mocha ./test/tests.js",
+    "test_with_coverage": "nyc --reporter=lcov mocha ./test/tests.js",
     "performance-test": "mocha ./test/performance-test.js",
     "lint": "eslint \"lib/**\""
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^5.13.0",
+    "eslint": "^5.16.0",
     "faker": "^4.1.0",
-    "mocha": "^5.2.0",
-    "nyc": "^13.2.0",
+    "mocha": "^6.1.3",
+    "nyc": "^13.3.0",
     "tempy": "^0.2.1"
   }
 }
