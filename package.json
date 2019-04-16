@@ -38,6 +38,7 @@
     "prepare": "npm prune",
     "test": "mocha ./test/tests.js",
     "test_with_coverage": "nyc --reporter=lcov mocha ./test/tests.js",
+    "test_with_report": "nyc mocha ./test/tests.js",
     "performance-test": "mocha ./test/performance-test.js",
     "lint": "eslint \"lib/**\""
   },
