@@ -9,3 +9,4 @@ resources
 build
 .nyc_output
 coverage
+.git
