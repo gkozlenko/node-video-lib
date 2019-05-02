@@ -12,7 +12,8 @@ const faker = require('faker');
 const expect = chai.expect;
 
 const MP4_FILE = './resources/boomstream.mp4';
-const MP4_HEVC_FILE = './resources/boomstream_hevc.mp4';
+const MP4_HEV1_FILE = './resources/boomstream_hev1.mp4';
+const MP4_HVC1_FILE = './resources/boomstream_hvc1.mp4';
 
 const shouldPacketize = function () {
     describe('when fragment is valid', function () {
@@ -60,8 +61,23 @@ describe('HLSPacketizer', function () {
             shouldPacketize();
         });
 
-        describe('h265/aac', function () {
-            const FILE_NAME = MP4_HEVC_FILE;
+        describe('h265-hev1/aac', function () {
+            const FILE_NAME = MP4_HEV1_FILE;
+
+            before(function () {
+                this.file = fs.openSync(FILE_NAME, 'r');
+                this.movie = MovieParser.parse(this.file);
+            });
+
+            after(function () {
+                fs.closeSync(this.file);
+            });
+
+            shouldPacketize();
+        });
+
+        describe('h265-hvc1/aac', function () {
+            const FILE_NAME = MP4_HVC1_FILE;
 
             before(function () {
                 this.file = fs.openSync(FILE_NAME, 'r');
