@@ -29,7 +29,7 @@ describe('MovieParser', function () {
             MovieSupport.shouldBeValidMovie(MP4_FILE, 'avc1.64001f', 'mp4a.40.2');
         });
 
-        describe('when source is a valid MP4 Buffer', function () {
+        describe('when source is a valid MP4 buffer', function () {
             before(function () {
                 this.file = fs.openSync(MP4_FILE, 'r');
                 this.buffer = Buffer.allocUnsafe(fs.fstatSync(this.file).size);
@@ -57,7 +57,7 @@ describe('MovieParser', function () {
             MovieSupport.shouldBeValidMovie(FLV_FILE, 'avc1.64001f', 'mp4a.40.2');
         });
 
-        describe('when source is a valid FLV Buffer', function () {
+        describe('when source is a valid FLV buffer', function () {
             before(function () {
                 this.file = fs.openSync(FLV_FILE, 'r');
                 this.buffer = Buffer.allocUnsafe(fs.fstatSync(this.file).size);
@@ -72,7 +72,7 @@ describe('MovieParser', function () {
             MovieSupport.shouldBeValidMovie(FLV_FILE, 'avc1.64001f', 'mp4a.40.2');
         });
 
-        describe('when source is not valid', function () {
+        describe('when source is not valid file', function () {
             before(function () {
                 this.file = fs.openSync(INVALID_FILE, 'r');
             });
@@ -83,6 +83,22 @@ describe('MovieParser', function () {
 
             it('should throws an error', function () {
                 return expect(() => MovieParser.parse(this.file)).to.throw('Cannot parse movie file');
+            });
+        });
+
+        describe('when source is not valid buffer', function () {
+            before(function () {
+                this.file = fs.openSync(INVALID_FILE, 'r');
+                this.buffer = Buffer.allocUnsafe(fs.fstatSync(this.file).size);
+                fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
+            });
+
+            after(function () {
+                fs.closeSync(this.file);
+            });
+
+            it('should throws an error', function () {
+                return expect(() => MovieParser.parse(this.buffer)).to.throw('Cannot parse movie file');
             });
         });
     });
