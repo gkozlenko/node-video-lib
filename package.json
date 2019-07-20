@@ -1,17 +1,17 @@
 {
   "name": "node-video-lib",
-  "version": "2.1.4",
+  "version": "2.1.10",
   "description": "Node.js Video Library / MP4 & FLV parser / HLS muxer",
   "license": "MIT",
   "main": "index",
   "author": {
     "name": "Gennady Kozlenko",
     "email": "gennadiy.kozlenko@gmail.com",
-    "url": "https://github.com/pipll/"
+    "url": "https://github.com/gkozlenko/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pipll/node-video-lib.git"
+    "url": "https://github.com/gkozlenko/node-video-lib.git"
   },
   "engines": {
     "node": ">=6.0.0"
@@ -36,16 +36,19 @@
   ],
   "scripts": {
     "prepare": "npm prune",
-    "test": "nyc --reporter=lcov mocha ./test/tests.js",
+    "test": "mocha ./test/tests.js",
+    "test_with_coverage": "nyc --reporter=lcov mocha ./test/tests.js",
+    "test_with_report": "nyc mocha ./test/tests.js",
     "performance-test": "mocha ./test/performance-test.js",
     "lint": "eslint \"lib/**\""
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^5.12.0",
+    "eslint": "^6.0.1",
     "faker": "^4.1.0",
-    "mocha": "^5.2.0",
-    "nyc": "^13.1.0",
-    "tempy": "^0.2.1"
+    "lodash": "^4.17.15",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1",
+    "tempy": "^0.3.0"
   }
 }

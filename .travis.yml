@@ -1,13 +1,13 @@
 language: node_js
 node_js:
+  - "12"
   - "11"
   - "10"
   - "8"
-  - "6"
 
 env:
   global:
-    - CC_TEST_REPORTER_ID=3d12bcb4e049108629f1fbf5c33b318c36f49035b11df575b990459a8c849e4e
+    - CC_TEST_REPORTER_ID=7754fd23994331dd651be55b7137045414a2ab8a63c05ce6ae78c4ff8c4ad93b
 
 cache:
   directories:
@@ -18,13 +18,13 @@ branches:
     - master
 
 before_script:
-    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-    - chmod +x ./cc-test-reporter
-    - ./cc-test-reporter before-build
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
-    - npm run lint
-    - npm test
+  - npm run lint
+  - npm run test_with_coverage
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
