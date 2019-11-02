@@ -44,10 +44,11 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^6.2.2",
+    "eslint": "^6.6.0",
     "faker": "^4.1.0",
+    "handlebars": "^4.5.1",
     "lodash": "^4.17.15",
-    "mocha": "^6.2.0",
+    "mocha": "^6.2.2",
     "nyc": "^14.1.1",
     "tempy": "^0.3.0"
   }
