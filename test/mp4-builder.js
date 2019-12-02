@@ -32,7 +32,6 @@ describe('MP4Builder', function () {
 
                 this.file = fs.openSync(this.fileName, 'r');
                 this.movie = MP4Parser.parse(this.file);
-                console.log(this.movie);
             });
 
             after(function () {
@@ -43,37 +42,46 @@ describe('MP4Builder', function () {
             MovieSupport.shouldBeValidMovie(MP4_FILE, 'avc1.64001f', 'mp4a.40.2');
         });
 
-        // describe('when source is FLV file', function () {
-        //     const FILE_NAME = MP4_HEV1_FILE;
-        //
-        //     describe('when source is a valid file', function () {
-        //         before(function () {
-        //             this.file = fs.openSync(FILE_NAME, 'r');
-        //             this.movie = MP4Parser.parse(this.file);
-        //         });
-        //
-        //         after(function () {
-        //             fs.closeSync(this.file);
-        //         });
-        //
-        //         MovieSupport.shouldBeValidMovie(FILE_NAME, 'hvc1.1.6.L93.9', 'mp4a.40.2');
-        //     });
-        //
-        //     describe('when source is a valid Buffer', function () {
-        //         before(function () {
-        //             this.file = fs.openSync(FILE_NAME, 'r');
-        //             this.buffer = Buffer.allocUnsafe(fs.fstatSync(this.file).size);
-        //             fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
-        //             this.movie = MP4Parser.parse(this.buffer);
-        //         });
-        //
-        //         after(function () {
-        //             fs.closeSync(this.file);
-        //         });
-        //
-        //         MovieSupport.shouldBeValidMovie(FILE_NAME, 'hvc1.1.6.L93.9', 'mp4a.40.2');
-        //     });
-        // });
+        describe('when source is FLV file', function () {
+            before(function () {
+                let file = fs.openSync(FLV_FILE, 'r');
+                let movie = FLVParser.parse(file);
+
+                this.fileName = tempy.file({extension: 'mp4'});
+                let outFile = fs.openSync(this.fileName, 'w');
+                MP4Builder.build(movie, file, outFile);
+                fs.closeSync(outFile);
+                fs.closeSync(file);
+
+                this.file = fs.openSync(this.fileName, 'r');
+                this.movie = MP4Parser.parse(this.file);
+            });
+
+            after(function () {
+                fs.closeSync(this.file);
+                fs.unlinkSync(this.fileName);
+            });
+
+            MovieSupport.shouldBeValidMovie(FLV_FILE, 'avc1.64001f', 'mp4a.40.2');
+        });
+
+        describe('when source is not Movie', function () {
+            before(function () {
+                this.file = fs.openSync(MP4_FILE, 'r');
+                this.fileName = tempy.file({extension: 'mp4'});
+                this.outFile = fs.openSync(this.fileName, 'w');
+            });
+
+            after(function () {
+                fs.closeSync(this.file);
+                fs.closeSync(this.outFile);
+                fs.unlinkSync(this.fileName);
+            });
+
+            it('should throws an error', function () {
+                return expect(() => MP4Builder.build('Some string', this.file, this.outFile)).to.throw('Argument 1 should be instance of Movie');
+            });
+        });
 
     });
 
