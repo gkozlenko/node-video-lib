@@ -10,7 +10,7 @@ Node.js Video Library / MP4 & FLV parser / HLS muxer
 
 ## Limitations
 
-**This library works only with MP4 and FLV video files encoded using H.264/H.265 video codecs and AAC audio codec.** 
+**This library works only with MP4 and FLV video files encoded using H.264/H.265 video codecs and AAC audio codec.**
 
 ## Installation
 
@@ -80,7 +80,7 @@ fs.open('/path/to/file', 'r', function(err, fd) {
             } catch (ex) {
                 console.error('Error:', ex);
             } finally {
-                fs.close(fdi);
+                fs.closeSync(fdi);
             }
         });
     } catch (ex) {
