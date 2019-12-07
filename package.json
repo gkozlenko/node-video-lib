@@ -1,7 +1,7 @@
 {
   "name": "node-video-lib",
-  "version": "2.1.12",
-  "description": "Node.js Video Library / MP4 & FLV parser / HLS muxer",
+  "version": "2.2.0",
+  "description": "Node.js Video Library / MP4 & FLV parser / MP4 builder / HLS muxer",
   "license": "MIT",
   "main": "index",
   "author": {

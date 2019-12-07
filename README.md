@@ -6,7 +6,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5244de41aaa07c082764/test_coverage)](https://codeclimate.com/github/gkozlenko/node-video-lib/test_coverage)
 [![GitHub License](https://img.shields.io/github/license/gkozlenko/node-video-lib.svg)](https://github.com/gkozlenko/node-video-lib/blob/master/LICENSE)
 
-Node.js Video Library / MP4 & FLV parser / HLS muxer
+Node.js Video Library / MP4 & FLV parser / MP4 builder / HLS muxer
 
 ## Limitations
 
