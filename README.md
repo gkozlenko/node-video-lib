@@ -10,7 +10,7 @@ Node.js Video Library / MP4 & FLV parser / HLS muxer
 
 ## Limitations
 
-**This library works only with MP4 and FLV video files encoded using H.264/H.265 video codecs and AAC audio codec.** 
+**This library works only with MP4 and FLV video files encoded using H.264/H.265 video codecs and AAC audio codec.**
 
 ## Installation
 
@@ -54,6 +54,32 @@ fs.open('/path/to/file', 'r', function(err, fd) {
             let sampleBuffers = VideoLib.FragmentReader.readSamples(fragment, fd);
             let buffer = VideoLib.HLSPacketizer.packetize(fragment, sampleBuffers);
             // Now buffer contains MPEG-TS chunk
+        }
+    } catch (ex) {
+        console.error('Error:', ex);
+    } finally {
+        fs.closeSync(fd);
+    }
+});
+```
+
+### Build MP4 file
+
+```javascript
+const fs = require('fs');
+const VideoLib = require('node-video-lib');
+
+fs.open('/path/to/file', 'r', function(err, fd) {
+    try {
+        let movie = VideoLib.MovieParser.parse(fd);
+        fs.open('/path/to/output.mp4', 'w', function(err, fw) {
+            try {
+                VideoLib.MP4Builder.build(movie, fd, fw);
+            } catch (ex) {
+                console.error('Error:', ex);
+            } finally {
+                fs.closeSync(fw);
+            }
         }
     } catch (ex) {
         console.error('Error:', ex);
@@ -168,6 +194,21 @@ Methods:
     * **buffer** [*\<Buffer\>*](https://nodejs.org/api/buffer.html) - File header (first 8 bytes)
     * Return: *\<boolean\>*
 
+### MP4Builder
+
+A tool for building MP4 video files.
+
+```javascript
+const MP4Builder = require('node-video-lib').MP4Builder
+```
+
+Methods:
+
+* **build(movie, source, fd)** - Build MP4 file
+    * **movie** [*\<Movie\>*](#movie) - Movie
+    * **source** *\<Integer\>*|[*\<Buffer\>*](https://nodejs.org/api/buffer.html) - Source (File descriptor or Buffer)
+    * **fd** *\<Integer\>* - File descriptor
+
 ### HLSPacketizer
 
 A tool for creating MPEG-TS chunks.
@@ -194,7 +235,7 @@ const FragmentListBuilder = require('node-video-lib').FragmentListBuilder
 Methods:
 
 * **build(movie, fragmentDuration)** - Split the movie to a list of fragments with an appropriate duration
-    * **movie** [*\<Movie\>*](#movie) - Fragment duration
+    * **movie** [*\<Movie\>*](#movie) - Movie
     * **fragmentDuration** *\<Integer\>* - Fragment duration
     * Return: [*\<FragmentList\>*](#fragmentlist)
 
