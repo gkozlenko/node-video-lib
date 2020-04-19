@@ -5,6 +5,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/5244de41aaa07c082764/maintainability)](https://codeclimate.com/github/gkozlenko/node-video-lib/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5244de41aaa07c082764/test_coverage)](https://codeclimate.com/github/gkozlenko/node-video-lib/test_coverage)
 [![GitHub License](https://img.shields.io/github/license/gkozlenko/node-video-lib.svg)](https://github.com/gkozlenko/node-video-lib/blob/master/LICENSE)
+[![Donate using PayPal](https://img.shields.io/badge/paypal-donate-green.svg)](https://www.paypal.me/pipll)
 [![Buy me a Coffee](https://img.shields.io/badge/buy%20me%20a%20coffee-donate-green.svg)](https://www.buymeacoffee.com/NIUeF95)
 
 Node.js Video Library / MP4 & FLV parser / MP4 builder / HLS muxer
