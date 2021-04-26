@@ -137,8 +137,8 @@ const shouldBeValidMovie = function (fileName, videoCodec, audioCodec) {
 
         describe('fragment', function () {
             before(function () {
-                let fragmentList = FragmentListBuilder.build(this.movie, faker.random.number({min: 3, max: 10}));
-                this.fragment = fragmentList.get(faker.random.number({min: 0, max: fragmentList.count() - 1}));
+                let fragmentList = FragmentListBuilder.build(this.movie, faker.datatype.number({min: 3, max: 10}));
+                this.fragment = fragmentList.get(faker.datatype.number({min: 0, max: fragmentList.count() - 1}));
             });
 
             describe('readSamples', function () {

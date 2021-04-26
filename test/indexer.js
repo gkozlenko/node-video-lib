@@ -32,7 +32,7 @@ describe('FragmentListIndexer', function () {
 
     describe('#index()', function () {
         before(function () {
-            this.fragmentList = FragmentListBuilder.build(this.movie, faker.random.number({min: 3, max: 10}));
+            this.fragmentList = FragmentListBuilder.build(this.movie, faker.datatype.number({min: 3, max: 10}));
             FragmentListIndexer.index(this.fragmentList, this.indexFile);
         });
 
@@ -50,7 +50,7 @@ describe('FragmentListIndexer', function () {
 
     describe('#read()', function () {
         before(function () {
-            this.fragmentList = FragmentListBuilder.build(this.movie, faker.random.number({min: 3, max: 10}));
+            this.fragmentList = FragmentListBuilder.build(this.movie, faker.datatype.number({min: 3, max: 10}));
             FragmentListIndexer.index(this.fragmentList, this.indexFile);
             this.readedFragmentList = FragmentListIndexer.read(this.indexFile);
         });
@@ -68,7 +68,7 @@ describe('FragmentListIndexer', function () {
         });
 
         it('should read fragments data', function () {
-            let number = faker.random.number({min: 0, max: this.fragmentList.count() - 1});
+            let number = faker.datatype.number({min: 0, max: this.fragmentList.count() - 1});
             let fragment = this.fragmentList.get(number);
             let sampleBuffers = FragmentReader.readSamples(fragment, this.file);
             let packet = HLSPacketizer.packetize(fragment, sampleBuffers);

@@ -18,8 +18,8 @@ const MP4_HVC1_FILE = './resources/boomstream_hvc1.mp4';
 const shouldPacketize = function () {
     describe('when fragment is valid', function () {
         before(function () {
-            let fragmentList = FragmentListBuilder.build(this.movie, faker.random.number({min: 3, max: 10}));
-            this.fragment = fragmentList.get(faker.random.number({min: 0, max: fragmentList.count() - 1}));
+            let fragmentList = FragmentListBuilder.build(this.movie, faker.datatype.number({min: 3, max: 10}));
+            this.fragment = fragmentList.get(faker.datatype.number({min: 0, max: fragmentList.count() - 1}));
             this.sampleBuffers = FragmentReader.readSamples(this.fragment, this.file);
         });
 
