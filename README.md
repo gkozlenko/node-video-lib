@@ -1,6 +1,6 @@
 # node-video-lib
 
-[![Build Status](https://travis-ci.org/gkozlenko/node-video-lib.svg?branch=master)](https://travis-ci.org/gkozlenko/node-video-lib)
+[![Build Status](https://github.com/gkozlenko/node-video-lib/actions/workflows/node.js.yml/badge.svg)](https://github.com/gkozlenko/node-video-lib/actions/workflows/node.js.yml)
 [![npm Version](https://img.shields.io/npm/v/node-video-lib.svg)](https://www.npmjs.com/package/node-video-lib)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5244de41aaa07c082764/maintainability)](https://codeclimate.com/github/gkozlenko/node-video-lib/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5244de41aaa07c082764/test_coverage)](https://codeclimate.com/github/gkozlenko/node-video-lib/test_coverage)
