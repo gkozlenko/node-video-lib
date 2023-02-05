@@ -2,11 +2,8 @@
 
 [![Build Status](https://github.com/gkozlenko/node-video-lib/actions/workflows/node.js.yml/badge.svg)](https://github.com/gkozlenko/node-video-lib/actions/workflows/node.js.yml)
 [![npm Version](https://img.shields.io/npm/v/node-video-lib.svg)](https://www.npmjs.com/package/node-video-lib)
-[![Maintainability](https://api.codeclimate.com/v1/badges/5244de41aaa07c082764/maintainability)](https://codeclimate.com/github/gkozlenko/node-video-lib/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/5244de41aaa07c082764/test_coverage)](https://codeclimate.com/github/gkozlenko/node-video-lib/test_coverage)
+[![Test Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/gkozlenko/5c6f38287f718d5962a0d63e3001d7a5/raw/24900ce982bc83949f8aabec7c5e4f36f7ff0f71/node-video-lib__heads_main.json)
 [![GitHub License](https://img.shields.io/github/license/gkozlenko/node-video-lib.svg)](https://github.com/gkozlenko/node-video-lib/blob/master/LICENSE)
-[![Donate using PayPal](https://img.shields.io/badge/paypal-donate-green.svg)](https://www.paypal.me/pipll)
-[![Buy me a Coffee](https://img.shields.io/badge/buy%20me%20a%20coffee-donate-green.svg)](https://www.buymeacoffee.com/NIUeF95)
 
 Node.js Video Library / MP4 & FLV parser / MP4 builder / HLS muxer
 
