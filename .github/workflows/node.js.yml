@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x, 16.x]
+        node-version: [10.x, 12.x, 14.x, 16.x, 18.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -24,3 +24,29 @@ jobs:
     - run: npm ci
     - run: npm run lint
     - run: npm test
+
+      # Only run the coverage once
+    - if: ${{ matrix.node-version == '18.x' }}
+      name: Get Coverage for badge
+      run: |
+        SUMMARY="$(npm run test_with_report | tail -6 | grep Lines)"
+        TOKENS=($SUMMARY)
+        echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
+
+        REF=${{ github.ref }}
+        echo "github.ref: $REF"
+        IFS='/' read -ra PATHS <<< "$REF"
+        BRANCH_NAME="${PATHS[1]}_${PATHS[2]}"
+        echo $BRANCH_NAME
+        echo "BRANCH=$(echo ${BRANCH_NAME})" >> $GITHUB_ENV
+    - if: ${{ matrix.node-version == '18.x' }}
+      name: Create the Badge
+      uses: schneegans/dynamic-badges-action@v1.0.0
+      with:
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: 5c6f38287f718d5962a0d63e3001d7a5
+        filename: node-video-lib__${{ env.BRANCH }}.json
+        label: Test Coverage
+        message: ${{ env.COVERAGE }}
+        color: green
+        namedLogo: jest
