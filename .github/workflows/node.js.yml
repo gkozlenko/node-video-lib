@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Build
 
 on:
   push:
@@ -16,9 +16,9 @@ jobs:
         node-version: [10.x, 12.x, 14.x, 16.x, 18.x]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
@@ -41,7 +41,7 @@ jobs:
         echo "BRANCH=$(echo ${BRANCH_NAME})" >> $GITHUB_ENV
     - if: ${{ matrix.node-version == '18.x' }}
       name: Create the Badge
-      uses: schneegans/dynamic-badges-action@v1.0.0
+      uses: schneegans/dynamic-badges-action@v1.6.0
       with:
         auth: ${{ secrets.GIST_SECRET }}
         gistID: 5c6f38287f718d5962a0d63e3001d7a5
@@ -49,4 +49,4 @@ jobs:
         label: Test Coverage
         message: ${{ env.COVERAGE }}
         color: green
-        namedLogo: jest
+        maxColorRange: 90

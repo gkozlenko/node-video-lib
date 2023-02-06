@@ -1,5 +1,5 @@
 .idea
-.travis.yml
+.github
 .editorconfig
 .eslintrc
 package-lock.json
