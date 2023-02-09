@@ -8,31 +8,30 @@ const FragmentReader = VideoLib.FragmentReader;
 const HLSPacketizer = VideoLib.HLSPacketizer;
 
 const fs = require('fs');
-const os = require('os');
-const path = require('path');
 const chai = require('chai');
-const faker = require('faker');
 const expect = chai.expect;
 
+const Utils = require('./lib/utils');
+
 const MOVIE_FILE = './resources/boomstream.mp4';
-const INDEX_FILE = path.join(os.tmpdir(), path.basename(MOVIE_FILE) + '.idx');
 
 describe('FragmentListIndexer', function () {
     before(function () {
+        this.fileName = Utils.tempFile('idx');
         this.file = fs.openSync(MOVIE_FILE, 'r');
-        this.indexFile = fs.openSync(INDEX_FILE, 'w+');
+        this.indexFile = fs.openSync(this.fileName, 'w+');
         this.movie = MovieParser.parse(this.file);
     });
 
     after(function () {
         fs.closeSync(this.file);
         fs.closeSync(this.indexFile);
-        fs.unlinkSync(INDEX_FILE);
+        fs.unlinkSync(this.fileName);
     });
 
     describe('#index()', function () {
         before(function () {
-            this.fragmentList = FragmentListBuilder.build(this.movie, faker.datatype.number({min: 3, max: 10}));
+            this.fragmentList = FragmentListBuilder.build(this.movie, Utils.randInt(3, 10));
             FragmentListIndexer.index(this.fragmentList, this.indexFile);
         });
 
@@ -50,7 +49,7 @@ describe('FragmentListIndexer', function () {
 
     describe('#read()', function () {
         before(function () {
-            this.fragmentList = FragmentListBuilder.build(this.movie, faker.datatype.number({min: 3, max: 10}));
+            this.fragmentList = FragmentListBuilder.build(this.movie, Utils.randInt(3, 10));
             FragmentListIndexer.index(this.fragmentList, this.indexFile);
             this.readedFragmentList = FragmentListIndexer.read(this.indexFile);
         });
@@ -68,7 +67,7 @@ describe('FragmentListIndexer', function () {
         });
 
         it('should read fragments data', function () {
-            let number = faker.datatype.number({min: 0, max: this.fragmentList.count() - 1});
+            let number = Utils.randInt(0, this.fragmentList.count() - 1);
             let fragment = this.fragmentList.get(number);
             let sampleBuffers = FragmentReader.readSamples(fragment, this.file);
             let packet = HLSPacketizer.packetize(fragment, sampleBuffers);

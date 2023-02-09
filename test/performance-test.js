@@ -9,7 +9,7 @@ const FragmentReader = VideoLib.FragmentReader;
 const HLSPacketizer = VideoLib.HLSPacketizer;
 
 const fs = require('fs');
-const tempy = require('tempy');
+const Utils = require('./lib/utils');
 
 const MOVIE_FILE = './resources/boomstream.mp4';
 const WARM_COUNT = 10;
@@ -20,9 +20,9 @@ describe('performance-test', function () {
 
     before(function () {
         this.file = fs.openSync(MOVIE_FILE, 'r');
-        this.outFile = tempy.file({extension: 'mp4'});
+        this.outFile = Utils.tempFile('mp4');
         this.out = fs.openSync(this.outFile, 'w');
-        this.indexFile = tempy.file({extension: 'idx'});
+        this.indexFile = Utils.tempFile('idx');
         this.index = fs.openSync(this.indexFile, 'w+');
         for (let i = 0; i < WARM_COUNT; i++) {
             let movie = MovieParser.parse(this.file);

@@ -6,8 +6,9 @@ const FragmentReader = VideoLib.FragmentReader;
 
 const fs = require('fs');
 const chai = require('chai');
-const faker = require('faker');
 const expect = chai.expect;
+
+const Utils = require('../lib/utils');
 
 const shouldBeValidMovie = function (fileName, videoCodec, audioCodec) {
     it('should be instance of VideoLib.Movie', function () {
@@ -137,8 +138,8 @@ const shouldBeValidMovie = function (fileName, videoCodec, audioCodec) {
 
         describe('fragment', function () {
             before(function () {
-                let fragmentList = FragmentListBuilder.build(this.movie, faker.datatype.number({min: 3, max: 10}));
-                this.fragment = fragmentList.get(faker.datatype.number({min: 0, max: fragmentList.count() - 1}));
+                let fragmentList = FragmentListBuilder.build(this.movie, Utils.randInt(3, 10));
+                this.fragment = fragmentList.get(Utils.randInt(0, fragmentList.count() - 1));
             });
 
             describe('readSamples', function () {
