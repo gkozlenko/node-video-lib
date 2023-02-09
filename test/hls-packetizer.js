@@ -8,8 +8,9 @@ const HLSPacketizer = VideoLib.HLSPacketizer;
 
 const fs = require('fs');
 const chai = require('chai');
-const faker = require('faker');
 const expect = chai.expect;
+
+const Utils = require('./lib/utils');
 
 const MP4_FILE = './resources/boomstream.mp4';
 const MP4_HEV1_FILE = './resources/boomstream_hev1.mp4';
@@ -18,8 +19,8 @@ const MP4_HVC1_FILE = './resources/boomstream_hvc1.mp4';
 const shouldPacketize = function () {
     describe('when fragment is valid', function () {
         before(function () {
-            let fragmentList = FragmentListBuilder.build(this.movie, faker.datatype.number({min: 3, max: 10}));
-            this.fragment = fragmentList.get(faker.datatype.number({min: 0, max: fragmentList.count() - 1}));
+            let fragmentList = FragmentListBuilder.build(this.movie, Utils.randInt(3, 10));
+            this.fragment = fragmentList.get(Utils.randInt(0, fragmentList.count()));
             this.sampleBuffers = FragmentReader.readSamples(this.fragment, this.file);
         });
 

@@ -6,10 +6,10 @@ const MP4Parser = VideoLib.MP4Parser;
 const FLVParser = VideoLib.FLVParser;
 
 const fs = require('fs');
-const tempy = require('tempy');
 const chai = require('chai');
 const expect = chai.expect;
 
+const Utils = require('./lib/utils');
 const MovieSupport = require('./support/movie');
 
 const MP4_FILE = './resources/boomstream.mp4';
@@ -24,7 +24,7 @@ describe('MP4Builder', function () {
                 let file = fs.openSync(MP4_FILE, 'r');
                 let movie = MP4Parser.parse(file);
 
-                this.fileName = tempy.file({extension: 'mp4'});
+                this.fileName = Utils.tempFile('mp4');
                 let outFile = fs.openSync(this.fileName, 'w');
                 MP4Builder.build(movie, file, outFile);
                 fs.closeSync(outFile);
@@ -47,7 +47,7 @@ describe('MP4Builder', function () {
                 let file = fs.openSync(FLV_FILE, 'r');
                 let movie = FLVParser.parse(file);
 
-                this.fileName = tempy.file({extension: 'mp4'});
+                this.fileName = Utils.tempFile('mp4');
                 let outFile = fs.openSync(this.fileName, 'w');
                 MP4Builder.build(movie, file, outFile);
                 fs.closeSync(outFile);
@@ -68,7 +68,7 @@ describe('MP4Builder', function () {
         describe('when source is not Movie', function () {
             before(function () {
                 this.file = fs.openSync(MP4_FILE, 'r');
-                this.fileName = tempy.file({extension: 'mp4'});
+                this.fileName = Utils.tempFile('mp4');
                 this.outFile = fs.openSync(this.fileName, 'w');
             });
 

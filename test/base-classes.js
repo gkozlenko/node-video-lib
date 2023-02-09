@@ -3,18 +3,19 @@
 const VideoLib = require('../index');
 
 const chai = require('chai');
-const faker = require('faker');
 const expect = chai.expect;
+
+const Utils = require('./lib/utils');
 
 const shouldHaveRelativeTimestamp = function () {
     describe('#relativeTimestamp()', function () {
         it('should return right relative timestamp value', function () {
-            this.record.timestamp = faker.datatype.number();
-            this.record.timescale = faker.datatype.number();
+            this.record.timestamp = Utils.randInt();
+            this.record.timescale = Utils.randInt();
             expect(this.record.relativeTimestamp()).to.be.equal(this.record.timestamp / this.record.timescale);
         });
         it('should return timestamp if timescale is not set', function () {
-            this.record.timestamp = faker.datatype.number();
+            this.record.timestamp = Utils.randInt();
             expect(this.record.relativeTimestamp()).to.be.equal(this.record.timestamp);
         });
     });
@@ -23,12 +24,12 @@ const shouldHaveRelativeTimestamp = function () {
 const shouldHaveRelativeDuration = function () {
     describe('#relativeDuration()', function () {
         it('should return right relative duration value', function () {
-            this.record.duration = faker.datatype.number();
-            this.record.timescale = faker.datatype.number();
+            this.record.duration = Utils.randInt();
+            this.record.timescale = Utils.randInt();
             expect(this.record.relativeDuration()).to.be.equal(this.record.duration / this.record.timescale);
         });
         it('should return duration if timescale is not set', function () {
-            this.record.duration = faker.datatype.number();
+            this.record.duration = Utils.randInt();
             expect(this.record.relativeDuration()).to.be.equal(this.record.duration);
         });
     });
@@ -37,16 +38,16 @@ const shouldHaveRelativeDuration = function () {
 const shouldHaveResolution = function () {
     describe('#resolution()', function () {
         it('should return right resolution when width and height are set', function () {
-            this.record.width = faker.datatype.number();
-            this.record.height = faker.datatype.number();
+            this.record.width = Utils.randInt();
+            this.record.height = Utils.randInt();
             expect(this.record.resolution()).to.be.eq(`${this.record.width}x${this.record.height}`);
         });
         it('should return empty string when width is not set', function () {
-            this.record.height = faker.datatype.number();
+            this.record.height = Utils.randInt();
             expect(this.record.resolution()).to.be.eq('');
         });
         it('should return empty string when height is not set', function () {
-            this.record.width = faker.datatype.number();
+            this.record.width = Utils.randInt();
             expect(this.record.resolution()).to.be.eq('');
         });
         it('should return empty string when width and height are not set', function () {
@@ -58,21 +59,21 @@ const shouldHaveResolution = function () {
 const shouldHaveEnsureDuration = function () {
     describe('#ensureDuration()', function () {
         it('should return track duration value', function () {
-            this.record.duration = faker.datatype.number();
+            this.record.duration = Utils.randInt();
             expect(this.record.ensureDuration()).to.be.equal(this.record.duration);
             let sample1 = new VideoLib.Sample();
-            sample1.duration = faker.datatype.number();
+            sample1.duration = Utils.randInt();
             let sample2 = new VideoLib.Sample();
-            sample2.duration = faker.datatype.number();
+            sample2.duration = Utils.randInt();
             this.record.samples = [sample1, sample2];
             expect(this.record.ensureDuration()).to.be.equal(this.record.duration);
         });
         it('should set and return max sample duration value', function () {
             expect(this.record.ensureDuration()).to.be.equal(0);
             let sample1 = new VideoLib.Sample();
-            sample1.duration = faker.datatype.number();
+            sample1.duration = Utils.randInt();
             let sample2 = new VideoLib.Sample();
-            sample2.duration = faker.datatype.number();
+            sample2.duration = Utils.randInt();
             this.record.samples = [sample1, sample2];
             expect(this.record.ensureDuration()).to.be.equal(Math.max(sample1.duration, sample2.duration));
         });
@@ -134,8 +135,8 @@ describe('Movie', function () {
     describe('#resolution()', function () {
         it('should return video track resolution when width and height are set', function () {
             let videoTrack = new VideoLib.VideoTrack();
-            videoTrack.width = faker.datatype.number();
-            videoTrack.height = faker.datatype.number();
+            videoTrack.width = Utils.randInt();
+            videoTrack.height = Utils.randInt();
             this.record.addTrack(videoTrack);
             expect(this.record.resolution()).to.be.eq(videoTrack.resolution());
         });
@@ -178,41 +179,41 @@ describe('Movie', function () {
 
     describe('#ensureDuration()', function () {
         it('when movie already have duration', function () {
-            this.record.duration = faker.datatype.number();
+            this.record.duration = Utils.randInt();
             let track = new VideoLib.AudioTrack();
-            track.duration = faker.datatype.number();
-            track.timescale = faker.datatype.number();
+            track.duration = Utils.randInt();
+            track.timescale = Utils.randInt();
             this.record.addTrack(track);
             expect(this.record.ensureDuration()).to.be.equal(this.record.duration);
         });
 
         it('when movie does not have duration and does not have timescale', function () {
             let track = new VideoLib.AudioTrack();
-            track.duration = faker.datatype.number();
-            track.timescale = faker.datatype.number();
+            track.duration = Utils.randInt();
+            track.timescale = Utils.randInt();
             this.record.addTrack(track);
             expect(this.record.ensureDuration()).to.be.equal(0);
         });
 
         it('when movie does not have duration and have one track', function () {
-            this.record.timescale = faker.datatype.number();
+            this.record.timescale = Utils.randInt();
             let track = new VideoLib.AudioTrack();
-            track.duration = faker.datatype.number();
-            track.timescale = faker.datatype.number();
+            track.duration = Utils.randInt();
+            track.timescale = Utils.randInt();
             this.record.addTrack(track);
             let expectedDuration = this.record.timescale * track.duration / track.timescale;
             expect(this.record.ensureDuration()).to.be.within(Math.floor(expectedDuration), Math.ceil(expectedDuration));
         });
 
         it('when movie does not have duration and have two tracks', function () {
-            this.record.timescale = faker.datatype.number();
+            this.record.timescale = Utils.randInt();
             let track1 = new VideoLib.AudioTrack();
-            track1.duration = faker.datatype.number();
-            track1.timescale = faker.datatype.number();
+            track1.duration = Utils.randInt();
+            track1.timescale = Utils.randInt();
             this.record.addTrack(track1);
             let track2 = new VideoLib.VideoTrack();
-            track2.duration = faker.datatype.number();
-            track2.timescale = faker.datatype.number();
+            track2.duration = Utils.randInt();
+            track2.timescale = Utils.randInt();
             this.record.addTrack(track2);
             let track = track1.relativeDuration() > track2.relativeDuration() ? track1 : track2;
             let expectedDuration = this.record.timescale * track.duration / track.timescale;
@@ -231,10 +232,10 @@ describe('FragmentList', function () {
     describe('#size()', function () {
         it('should return right size value', function () {
             this.record.audio = {
-                size: faker.datatype.number(),
+                size: Utils.randInt(),
             };
             this.record.video = {
-                size: faker.datatype.number(),
+                size: Utils.randInt(),
             };
             expect(this.record.size()).to.be.equal(this.record.audio.size + this.record.video.size);
         });
