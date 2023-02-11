@@ -7,7 +7,7 @@ const VideoSample = require('../lib/video-sample');
 const chai = require('chai');
 const expect = chai.expect;
 
-describe('SampleCounter', function () {
+describe('HLSSampleCounter', function () {
     before(function () {
         this.counter = new SampleCounter();
         this.audioSample = new AudioSample();
