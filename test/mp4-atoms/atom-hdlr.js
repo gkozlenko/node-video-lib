@@ -37,9 +37,6 @@ describe('hdlr', function () {
             atom.componentName = componentName;
 
             let buffer = Buffer.alloc(45);
-            buffer.write(handlerType, 8);
-            buffer.write(componentName, 24);
-
             atom.build(buffer, 0);
 
             expect(buffer.readUInt32BE(0)).to.be.equal(buffer.length);
