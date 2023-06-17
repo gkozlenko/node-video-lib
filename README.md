@@ -1,9 +1,9 @@
 # node-video-lib
 
-[![Build Status](https://github.com/gkozlenko/node-video-lib/actions/workflows/node.js.yml/badge.svg)](https://github.com/gkozlenko/node-video-lib/actions/workflows/node.js.yml)
-[![Test Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/gkozlenko/5c6f38287f718d5962a0d63e3001d7a5/raw/node-video-lib__heads_master.json)](https://github.com/gkozlenko/node-video-lib/actions/workflows/node.js.yml)
-[![npm Version](https://img.shields.io/npm/v/node-video-lib.svg)](https://www.npmjs.com/package/node-video-lib)
-[![GitHub License](https://img.shields.io/github/license/gkozlenko/node-video-lib.svg)](https://github.com/gkozlenko/node-video-lib/blob/master/LICENSE)
+[![build status](https://github.com/gkozlenko/node-video-lib/actions/workflows/node.js.yml/badge.svg)](https://github.com/gkozlenko/node-video-lib/actions/workflows/node.js.yml)
+[![test coverage](https://gkozlenko.github.io/node-video-lib/badges/coverage.svg)](https://github.com/gkozlenko/node-video-lib/actions/workflows/node.js.yml)
+[![npm version](https://img.shields.io/npm/v/node-video-lib.svg)](https://www.npmjs.com/package/node-video-lib)
+[![license](https://img.shields.io/github/license/gkozlenko/node-video-lib.svg)](https://github.com/gkozlenko/node-video-lib/blob/master/LICENSE)
 
 Node.js Video Library / MP4 & FLV parser / MP4 builder / HLS muxer
 
