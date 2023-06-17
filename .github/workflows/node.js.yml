@@ -1,4 +1,4 @@
-name: Build
+name: build
 
 on:
   push:
@@ -8,12 +8,11 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x, 16.x, 18.x]
+        node-version: [10.x, 12.x, 14.x, 16.x, 18.x, 20.x]
 
     steps:
     - uses: actions/checkout@v3
@@ -25,7 +24,7 @@ jobs:
     - run: npm run lint
     - run: npm run test_with_report
 
-    # Only run the coverage once
+      # Only run the coverage once
     - if: |
         matrix.node-version == '18.x' &&
         github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
