@@ -15,18 +15,39 @@ jobs:
         node-version: [10.x, 12.x, 14.x, 16.x, 18.x, 20.x]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run lint
-    - run: npm run test_with_report
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      # Only run the coverage once
-    - if: |
-        matrix.node-version == '18.x' &&
-        github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
-      name: Update Coverage Badge
-      uses: we-cli/coverage-badge-action@main
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Test
+        run: |
+          npm ci
+          npm run lint
+          npm test
+
+      - name: Comment on PR with coverage percentages
+        if: |
+          matrix.node-version == '18.x' &&
+          github.event_name == 'pull_request'
+        run: |
+          REPORT=$(<coverage/coverage-summary.json)
+          LINES=$(jq -r '.total.lines.pct' <<< "$REPORT")
+          STATEMENTS=$(jq -r '.total.statements.pct' <<< "$REPORT")
+          FUNCTIONS=$(jq -r '.total.functions.pct' <<< "$REPORT")
+          BRANCHES=$(jq -r '.total.branches.pct' <<< "$REPORT")
+          NEWLINE=$'\n'
+          BODY="## Test Coverage Summary Statistics${NEWLINE}* __Lines:__ ${LINES}%${NEWLINE}* __Statements:__ ${STATEMENTS}%${NEWLINE}* __Functions:__ ${FUNCTIONS}%${NEWLINE}* __Branches:__ ${BRANCHES}%"
+          gh pr comment ${{github.event.pull_request.number}} -b "${BODY}"
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Coverage Badge
+        if: |
+          matrix.node-version == '18.x' &&
+          github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+        uses: we-cli/coverage-badge-action@main
