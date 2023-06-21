@@ -36,8 +36,7 @@
   ],
   "scripts": {
     "prepare": "npm prune",
-    "test": "mocha ./test/tests.js",
-    "test_with_report": "nyc -r text -r json-summary mocha ./test/tests.js",
+    "test": "nyc -r text -r json-summary mocha ./test/tests.js",
     "performance-test": "mocha ./test/performance-test.js",
     "lint": "eslint \"lib/**\""
   },
