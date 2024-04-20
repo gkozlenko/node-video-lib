@@ -25,17 +25,16 @@ $ npm install node-video-lib
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file', 'r', function(err, fd) {
-    try {
-        let movie = VideoLib.MovieParser.parse(fd);
-        // Work with movie
-        console.log('Duration:', movie.relativeDuration());
-    } catch (ex) {
-        console.error('Error:', ex);
-    } finally {
-        fs.closeSync(fd);
-    }
-});
+let fd = fs.openSync('/path/to/file', 'r');
+try {
+    let movie = VideoLib.MovieParser.parse(fd);
+    // Work with movie
+    console.log('Duration:', movie.relativeDuration());
+} catch (ex) {
+    console.error('Error:', ex);
+} finally {
+    fs.closeSync(fd);
+}
 ```
 
 ### Create MPEG-TS chunks
@@ -44,22 +43,21 @@ fs.open('/path/to/file', 'r', function(err, fd) {
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file', 'r', function(err, fd) {
-    try {
-        let movie = VideoLib.MovieParser.parse(fd);
-        let fragmentList = VideoLib.FragmentListBuilder.build(movie, 5);
-        for (let i = 0; i < fragmentList.count(); i++) {
-            let fragment = fragmentList.get(i);
-            let sampleBuffers = VideoLib.FragmentReader.readSamples(fragment, fd);
-            let buffer = VideoLib.HLSPacketizer.packetize(fragment, sampleBuffers);
-            // Now buffer contains MPEG-TS chunk
-        }
-    } catch (ex) {
-        console.error('Error:', ex);
-    } finally {
-        fs.closeSync(fd);
+let fd = fs.openSync('/path/to/file', 'r');
+try {
+    let movie = VideoLib.MovieParser.parse(fd);
+    let fragmentList = VideoLib.FragmentListBuilder.build(movie, 5);
+    for (let i = 0; i < fragmentList.count(); i++) {
+        let fragment = fragmentList.get(i);
+        let sampleBuffers = VideoLib.FragmentReader.readSamples(fragment, fd);
+        let buffer = VideoLib.HLSPacketizer.packetize(fragment, sampleBuffers);
+        // Now buffer contains MPEG-TS chunk
     }
-});
+} catch (ex) {
+    console.error('Error:', ex);
+} finally {
+    fs.closeSync(fd);
+}
 ```
 
 ### Build MP4 file
@@ -68,24 +66,22 @@ fs.open('/path/to/file', 'r', function(err, fd) {
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file', 'r', function(err, fd) {
+let fd = fs.openSync('/path/to/file', 'r');
+try {
+    let movie = VideoLib.MovieParser.parse(fd);
+    let fw = fs.openSync('/path/to/output.mp4', 'w');
     try {
-        let movie = VideoLib.MovieParser.parse(fd);
-        fs.open('/path/to/output.mp4', 'w', function(err, fw) {
-            try {
-                VideoLib.MP4Builder.build(movie, fd, fw);
-            } catch (ex) {
-                console.error('Error:', ex);
-            } finally {
-                fs.closeSync(fw);
-            }
-        }
+        VideoLib.MP4Builder.build(movie, fd, fw);
     } catch (ex) {
         console.error('Error:', ex);
     } finally {
-        fs.closeSync(fd);
+        fs.closeSync(fw);
     }
-});
+} catch (ex) {
+    console.error('Error:', ex);
+} finally {
+    fs.closeSync(fd);
+}
 ```
 
 ### Create index file
@@ -94,26 +90,24 @@ fs.open('/path/to/file', 'r', function(err, fd) {
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file', 'r', function(err, fd) {
+let fd = fs.openSync('/path/to/file', 'r');
+try {
+    let movie = VideoLib.MovieParser.parse(fd);
+    let fragmentList = VideoLib.FragmentListBuilder.build(movie, 5);
+    console.log('Duration:', fragmentList.relativeDuration());
+    let fdi = fs.openSync('/path/to/index.idx', 'w');
     try {
-        let movie = VideoLib.MovieParser.parse(fd);
-        let fragmentList = VideoLib.FragmentListBuilder.build(movie, 5);
-        console.log('Duration:', fragmentList.relativeDuration());
-        fs.open('/path/to/index.idx', 'w', function(err, fdi) {
-            try {
-                VideoLib.FragmentListIndexer.index(fragmentList, fdi);
-            } catch (ex) {
-                console.error('Error:', ex);
-            } finally {
-                fs.closeSync(fdi);
-            }
-        });
+        VideoLib.FragmentListIndexer.index(fragmentList, fdi);
     } catch (ex) {
         console.error('Error:', ex);
     } finally {
-        fs.closeSync(fd);
+        fs.closeSync(fdi);
     }
-});
+} catch (ex) {
+    console.error('Error:', ex);
+} finally {
+    fs.closeSync(fd);
+}
 ```
 
 ### Create MPEG-TS chunks using index file
@@ -122,25 +116,23 @@ fs.open('/path/to/file', 'r', function(err, fd) {
 const fs = require('fs');
 const VideoLib = require('node-video-lib');
 
-fs.open('/path/to/file', 'r', function(err, fd) {
-    fs.open('/path/to/index.idx', 'r', function(err, fdi) {
-        try {
-            let fragmentList = VideoLib.FragmentListIndexer.read(fdi);
-            console.log('Duration:', fragmentList.relativeDuration());
-            for (let i = 0; i < fragmentList.count(); i++) {
-                let fragment = fragmentList.get(i);
-                let sampleBuffers = VideoLib.FragmentReader.readSamples(fragment, fd);
-                let buffer = VideoLib.HLSPacketizer.packetize(fragment, sampleBuffers);
-                // Now buffer contains MPEG-TS chunk
-            }
-        } catch (ex) {
-            console.error('Error:', ex);
-        } finally {
-            fs.closeSync(fd);
-            fs.closeSync(fdi);
-        }
-    });
-});
+let fd = fs.openSync('/path/to/file', 'r');
+let fdi = fs.openSync('/path/to/index.idx', 'r');
+try {
+    let fragmentList = VideoLib.FragmentListIndexer.read(fdi);
+    console.log('Duration:', fragmentList.relativeDuration());
+    for (let i = 0; i < fragmentList.count(); i++) {
+        let fragment = fragmentList.get(i);
+        let sampleBuffers = VideoLib.FragmentReader.readSamples(fragment, fd);
+        let buffer = VideoLib.HLSPacketizer.packetize(fragment, sampleBuffers);
+        // Now buffer contains MPEG-TS chunk
+    }
+} catch (ex) {
+    console.error('Error:', ex);
+} finally {
+    fs.closeSync(fd);
+    fs.closeSync(fdi);
+}
 ```
 
 ## Classes
