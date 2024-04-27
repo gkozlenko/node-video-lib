@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.x, 16.x, 18.x, 20.x]
+        node-version: [10.x, 12.x, 14.x, 16.x, 18.x, 20.x, 22.x]
 
     steps:
       - name: Checkout
@@ -31,7 +31,7 @@ jobs:
 
       - name: Comment on PR with coverage percentages
         if: |
-          matrix.node-version == '18.x' &&
+          matrix.node-version == '20.x' &&
           github.event_name == 'pull_request'
         run: |
           REPORT=$(<coverage/coverage-summary.json)
@@ -48,6 +48,6 @@ jobs:
 
       - name: Update Coverage Badge
         if: |
-          matrix.node-version == '18.x' &&
+          matrix.node-version == '20.x' &&
           github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
         uses: we-cli/coverage-badge-action@main
