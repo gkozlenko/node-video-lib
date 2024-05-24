@@ -142,6 +142,18 @@ describe('MP4Parser', function () {
                 return expect(() => MP4Parser.parse(this.file)).to.throw('MOOV atom not found');
             });
         });
+
+        describe('when MOOV atom is not readable', function () {
+            before(function () {
+                this.buffer = Buffer.alloc(100);
+                this.buffer.writeUInt32BE(250, 0);
+                this.buffer.write('moov', 4);
+            });
+
+            it('should throws an error', function () {
+                return expect(() => MP4Parser.parse(this.buffer)).to.throw('Unable to read MOOV atom');
+            });
+        });
     });
 
     describe('#check', function () {
