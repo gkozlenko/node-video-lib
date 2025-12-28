@@ -6,48 +6,70 @@ on:
   pull_request:
     branches: [ master ]
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [10.x, 12.x, 14.x, 16.x, 18.x, 20.x, 22.x]
-
+        node-version: [20, 22, 24, 25]
+        include:
+          - node-version: 24
+            is-main: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
 
       - name: Test
         run: |
-          npm ci
-          npm run lint
           npm test
 
-      - name: Comment on PR with coverage percentages
-        if: |
-          matrix.node-version == '20.x' &&
-          github.event_name == 'pull_request'
+      - name: Prepare Coverage Report
+        if: matrix.is-main == true && github.event_name == 'pull_request'
+        id: coverage
         run: |
           REPORT=$(<coverage/coverage-summary.json)
           LINES=$(jq -r '.total.lines.pct' <<< "$REPORT")
           STATEMENTS=$(jq -r '.total.statements.pct' <<< "$REPORT")
           FUNCTIONS=$(jq -r '.total.functions.pct' <<< "$REPORT")
           BRANCHES=$(jq -r '.total.branches.pct' <<< "$REPORT")
-          NEWLINE=$'\n'
-          BODY="## Test Coverage Summary Statistics${NEWLINE}* __Lines:__ ${LINES}%${NEWLINE}* __Statements:__ ${STATEMENTS}%${NEWLINE}* __Functions:__ ${FUNCTIONS}%${NEWLINE}* __Branches:__ ${BRANCHES}%"
-          gh pr comment ${{github.event.pull_request.number}} -b "${BODY}"
-        continue-on-error: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+          echo "lines=$LINES" >> $GITHUB_OUTPUT
+          echo "statements=$STATEMENTS" >> $GITHUB_OUTPUT
+          echo "functions=$FUNCTIONS" >> $GITHUB_OUTPUT
+          echo "branches=$BRANCHES" >> $GITHUB_OUTPUT
+
+      - name: Sticky Pull Request Comment
+        if: matrix.is-main == true && github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: coverage
+          message: |
+            ## Test Coverage Summary Statistics
+            * __Lines:__ ${{ steps.coverage.outputs.lines }}%
+            * __Statements:__ ${{ steps.coverage.outputs.statements }}%
+            * __Functions:__ ${{ steps.coverage.outputs.functions }}%
+            * __Branches:__ ${{ steps.coverage.outputs.branches }}%
 
       - name: Update Coverage Badge
         if: |
-          matrix.node-version == '20.x' &&
+          matrix.is-main == true &&
           github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
-        uses: we-cli/coverage-badge-action@main
+        uses: we-cli/coverage-badge-action@8a0b6ee05f6dd0f294089cbe7a848452a2b43eef
