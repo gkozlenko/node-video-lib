@@ -5,7 +5,7 @@ export default [
     js.configs.recommended,
     {    
         languageOptions: {
-            ecmaVersion: 2022,
+            ecmaVersion: 2018,
             sourceType: "commonjs",
             globals: {
                 ...globals.node,
@@ -83,7 +83,13 @@ export default [
             "curly": "error",
             "eqeqeq": "error",
             "no-use-before-define": "error",
-            "no-unused-vars": "error",
+            "no-unused-vars": [
+                "error",
+                {
+                    "caughtErrors": "all",
+                    "caughtErrorsIgnorePattern": "^_"
+                }
+            ],
             "no-unexpected-multiline": "error",
             "no-multi-str": "error",
             "no-trailing-spaces": "error",
