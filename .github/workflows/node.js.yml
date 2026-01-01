@@ -39,7 +39,7 @@ jobs:
 
       - name: Test
         run: |
-          npm test
+          npm run test-with-report
 
       - name: Prepare Coverage Report
         if: matrix.is-main == true && github.event_name == 'pull_request'

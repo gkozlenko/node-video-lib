@@ -1,6 +1,6 @@
 'use strict';
 
-const crc32 = require('../lib/hls/crc32');
+const crc32 = require('../../lib/hls/crc32');
 
 const chai = require('chai');
 const expect = chai.expect;
