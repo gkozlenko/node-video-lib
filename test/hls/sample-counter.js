@@ -1,13 +1,13 @@
 'use strict';
 
-const SampleCounter = require('../lib/hls/sample-counter');
-const AudioSample = require('../lib/audio-sample');
-const VideoSample = require('../lib/video-sample');
+const SampleCounter = require('../../lib/hls/sample-counter');
+const AudioSample = require('../../lib/audio-sample');
+const VideoSample = require('../../lib/video-sample');
 
 const chai = require('chai');
 const expect = chai.expect;
 
-describe('HLSSampleCounter', function () {
+describe('SampleCounter', function () {
     before(function () {
         this.counter = new SampleCounter();
         this.audioSample = new AudioSample();

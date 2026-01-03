@@ -1,7 +1,7 @@
 .idea
 .github
 .editorconfig
-.eslintrc
+eslint.config.mjs
 package-lock.json
 test
 *.log
