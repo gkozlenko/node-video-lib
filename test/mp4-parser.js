@@ -12,6 +12,7 @@ const MovieSupport = require('./support/movie');
 const MP4_FILE = './resources/boomstream.mp4';
 const MP4_HEV1_FILE = './resources/boomstream_hev1.mp4';
 const MP4_HVC1_FILE = './resources/boomstream_hvc1.mp4';
+const MP4_AAC_ONLY_FILE = './resources/boomstream_audio.mp4';
 const FLV_FILE = './resources/boomstream.flv';
 const INVALID_FILE = './resources/picture.jpg';
 
@@ -112,6 +113,38 @@ describe('MP4Parser', function () {
                 });
 
                 MovieSupport.shouldBeValidMovie(FILE_NAME, 'hvc1.1.60000000.L93.9', 'mp4a.40.2');
+            });
+        });
+
+        describe('no-video/aac', function () {
+            const FILE_NAME = MP4_AAC_ONLY_FILE;
+
+            describe('when source is a valid file', function () {
+                before(function () {
+                    this.file = fs.openSync(FILE_NAME, 'r');
+                    this.movie = MP4Parser.parse(this.file);
+                });
+
+                after(function () {
+                    fs.closeSync(this.file);
+                });
+
+                MovieSupport.shouldBeValidMovie(FILE_NAME, null, 'mp4a.40.2');
+            });
+
+            describe('when source is a valid Buffer', function () {
+                before(function () {
+                    this.file = fs.openSync(FILE_NAME, 'r');
+                    this.buffer = Buffer.allocUnsafe(fs.fstatSync(this.file).size);
+                    fs.readSync(this.file, this.buffer, 0, this.buffer.length, 0);
+                    this.movie = MP4Parser.parse(this.buffer);
+                });
+
+                after(function () {
+                    fs.closeSync(this.file);
+                });
+
+                MovieSupport.shouldBeValidMovie(FILE_NAME, null, 'mp4a.40.2');
             });
         });
 

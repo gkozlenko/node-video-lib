@@ -15,12 +15,13 @@ const Utils = require('./lib/utils');
 const MP4_FILE = './resources/boomstream.mp4';
 const MP4_HEV1_FILE = './resources/boomstream_hev1.mp4';
 const MP4_HVC1_FILE = './resources/boomstream_hvc1.mp4';
+const MP4_AAC_ONLY_FILE = './resources/boomstream_audio.mp4';
 
 const shouldPacketize = function () {
     describe('when fragment is valid', function () {
         before(function () {
-            let fragmentList = FragmentListBuilder.build(this.movie, Utils.randInt(3, 10));
-            this.fragment = fragmentList.get(Utils.randInt(0, fragmentList.count()));
+            let fragmentList = FragmentListBuilder.build(this.movie, 5/*Utils.randInt(3, 10)*/);
+            this.fragment = fragmentList.get(0/*Utils.randInt(0, fragmentList.count())*/);
             this.sampleBuffers = FragmentReader.readSamples(this.fragment, this.file);
         });
 
@@ -79,6 +80,21 @@ describe('HLSPacketizer', function () {
 
         describe('h265-hvc1/aac', function () {
             const FILE_NAME = MP4_HVC1_FILE;
+
+            before(function () {
+                this.file = fs.openSync(FILE_NAME, 'r');
+                this.movie = MovieParser.parse(this.file);
+            });
+
+            after(function () {
+                fs.closeSync(this.file);
+            });
+
+            shouldPacketize();
+        });
+
+        describe('no-video/aac', function () {
+            const FILE_NAME = MP4_AAC_ONLY_FILE;
 
             before(function () {
                 this.file = fs.openSync(FILE_NAME, 'r');
