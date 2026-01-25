@@ -5,6 +5,7 @@ describe('node-video-lib', function () {
     require('./base-classes');
     require('./buffer-utils');
     require('./flv-parser');
+    require('./fragment-list');
     require('./fragment-reader');
     require('./hls-packetizer');
     require('./indexer');
