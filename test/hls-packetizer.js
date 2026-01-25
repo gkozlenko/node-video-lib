@@ -20,8 +20,8 @@ const MP4_AAC_ONLY_FILE = './resources/boomstream_audio.mp4';
 const shouldPacketize = function () {
     describe('when fragment is valid', function () {
         before(function () {
-            let fragmentList = FragmentListBuilder.build(this.movie, 5/*Utils.randInt(3, 10)*/);
-            this.fragment = fragmentList.get(0/*Utils.randInt(0, fragmentList.count())*/);
+            let fragmentList = FragmentListBuilder.build(this.movie, Utils.randInt(3, 10));
+            this.fragment = fragmentList.get(Utils.randInt(0, fragmentList.count()));
             this.sampleBuffers = FragmentReader.readSamples(this.fragment, this.file);
         });
 
