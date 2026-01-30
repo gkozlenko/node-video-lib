@@ -7,6 +7,19 @@ const expect = chai.expect;
 
 describe('AAC', function () {
 
+    describe('#parse', function () {
+        it('should throw an error when extraData is not privided', () => {
+            const codec = new CodecAac(null);
+            expect(() => codec.parse()).to.throw('Invalid AAC config: data too short (0 bytes)');
+        });
+
+        it('should throw an error when extraData is too short', () => {
+            const extraData = Buffer.from([0x00]);
+            const codec = new CodecAac(extraData);
+            expect(() => codec.parse()).to.throw('Invalid AAC config: data too short (1 bytes)');
+        });
+    });
+
     describe('#codec', function () {
         it('should correctly identify AAC LC (Profile 2)', () => {
             const extraData = Buffer.from([0x10, 0x00]);
