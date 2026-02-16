@@ -325,6 +325,8 @@ Methods:
 
 * **relativeDuration()** - Movie duration in seconds
     * Return: *\<Number\>*
+* **maxFragmentDuration()** - Maximum fragment duration in seconds
+    * Return: *\<Number\>*
 * **count()** - Fragments count
     * Return: *\<Integer\>*
 * **size()** - Samples size
