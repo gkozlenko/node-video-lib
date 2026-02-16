@@ -38,4 +38,20 @@ describe('FragmentList', function () {
         });
     });
 
+    describe('#maxFragmentDuration', function () {
+        it('should respond with max fragment duration', function () {
+            const fragmentList = new FragmentList();
+            fragmentList.timescale = 1000;
+
+            let fragment1 = fragmentList.createFragment(0);
+            fragment1.duration = 100;
+            let fragment2 = fragmentList.createFragment(10);
+            fragment2.duration = 200;
+            let fragment3 = fragmentList.createFragment(30);
+            fragment3.duration = 150;
+
+            expect(fragmentList.maxFragmentDuration()).to.be.closeTo(0.2, 0.001);
+        });
+    });
+
 });

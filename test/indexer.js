@@ -42,7 +42,7 @@ describe('FragmentListIndexer', function () {
                 expect(fs.fstatSync(this.indexFile).isFile()).to.be.equal(true),
                 expect(fs.fstatSync(this.indexFile).size).to.be.above(0),
                 expect(buffer.toString('ascii', 0, 3)).to.be.equal('idx'),
-                expect(buffer[3]).to.be.equal(2),
+                expect(buffer[3]).to.be.equal(3),
             ];
         });
     });
@@ -59,6 +59,7 @@ describe('FragmentListIndexer', function () {
                 expect(this.readedFragmentList.fragmentDuration).to.be.equal(this.fragmentList.fragmentDuration),
                 expect(this.readedFragmentList.count()).to.be.equal(this.fragmentList.count()),
                 expect(this.readedFragmentList.size()).to.be.equal(this.fragmentList.size()),
+                expect(this.readedFragmentList.maxFragmentDuration()).to.be.closeTo(this.fragmentList.maxFragmentDuration(), 0.001),
                 expect(this.readedFragmentList.duration).to.be.equal(this.fragmentList.duration),
                 expect(this.readedFragmentList.timescale).to.be.equal(this.fragmentList.timescale),
                 expect(this.readedFragmentList.video).to.be.deep.equal(this.fragmentList.video),
