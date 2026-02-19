@@ -98,6 +98,7 @@ export default [
                 "unix"
             ],
             "eol-last": "error",
+            "no-useless-assignment": "off",
         },
     }
 ];
