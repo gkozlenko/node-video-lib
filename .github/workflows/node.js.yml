@@ -21,6 +21,8 @@ jobs:
         include:
           - node-version: 24
             is-main: true
+          - node-version: 25
+            experimental: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,10 +38,11 @@ jobs:
 
       - name: Lint
         run: npm run lint
+        continue-on-error: ${{ matrix.experimental == true }}
 
       - name: Test
-        run: |
-          npm run test-with-report
+        run: npm run test-with-report
+        continue-on-error: ${{ matrix.experimental == true }}
 
       - name: Prepare Coverage Report
         if: matrix.is-main == true && github.event_name == 'pull_request'
