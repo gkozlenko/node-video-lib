@@ -45,13 +45,13 @@
     "@eslint/js": "^10.0.1",
     "c8": "^11.0.0",
     "chai": "^6.2.2",
-    "eslint": "^10.0.2",
-    "globals": "^17.3.0",
+    "eslint": "^10.0.3",
+    "globals": "^17.4.0",
     "mocha": "^11.7.5"
   },
   "overrides": {
     "diff": "^8.0.3",
     "minimatch": "^10.2.4",
-    "serialize-javascript": "^7.0.3"
+    "serialize-javascript": "^7.0.4"
   }
 }
